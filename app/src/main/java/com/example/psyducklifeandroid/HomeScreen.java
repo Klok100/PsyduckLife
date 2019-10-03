@@ -14,10 +14,25 @@ public class HomeScreen extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
     }
 
-    //Intent -> Main Activity
-    public void shareInfoToMain(View v) {
+    public void shareInfoToRun(View v) {
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, RunningActivity.class);
+
+        startActivity(intent);
+
+    }
+
+    public void shareInfoToSwim(View v) {
+
+        Intent intent = new Intent(this, SwimmingActivity.class);
+
+        startActivity(intent);
+
+    }
+
+    public void shareInfoToFly(View v) {
+
+        Intent intent = new Intent(this, FlyingActivity.class);
 
         startActivity(intent);
 

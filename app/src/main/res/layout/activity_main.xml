@@ -10,6 +10,7 @@
         android:id="@+id/mainBackground"
         android:layout_width="884dp"
         android:layout_height="458dp"
+        android:onClick="shareInfoToMain"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
