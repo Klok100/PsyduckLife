@@ -14,6 +14,7 @@ public class HomeScreen extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
     }
 
+    //Intent -> Main Activity
     public void shareInfoToMain(View v) {
 
         Intent intent = new Intent(this, MainActivity.class);
