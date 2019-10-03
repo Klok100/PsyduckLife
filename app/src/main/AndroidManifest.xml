@@ -9,12 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BattleActivity"></activity>
-        <activity android:name=".SwimmingActivity" />
-        <activity android:name=".RunningActivity" />
-        <activity android:name=".FlyingActivity" />
-        <activity android:name=".HomeScreen" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".BattleActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity android:name=".SwimmingActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".RunningActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".FlyingActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".HomeScreen"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
