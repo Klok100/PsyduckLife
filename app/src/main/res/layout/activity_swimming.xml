@@ -6,4 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".SwimmingActivity">
 
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="1414dp"
+        android:layout_height="717dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/waterscrollingbackground" />
 </androidx.constraintlayout.widget.ConstraintLayout>
