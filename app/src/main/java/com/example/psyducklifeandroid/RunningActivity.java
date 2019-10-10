@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ValueAnimator;
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
@@ -33,5 +34,27 @@ public class RunningActivity extends AppCompatActivity {
         });
         animator.start();
 
+    }
+
+    public void upClick(View v){
+        ImageView high = findViewById(R.id.imageViewdoes);
+        ImageView low = findViewById(R.id.imageView);
+
+        high.setVisibility(View.VISIBLE);
+        high.setImageResource(R.drawable.psyducksprite);
+        low.setVisibility(View.INVISIBLE);
+
+
+
+
+    }
+
+    public void downClick(View v){
+        ImageView high = findViewById(R.id.imageViewdoes);
+        ImageView low = findViewById(R.id.imageView);
+
+        low.setVisibility(View.VISIBLE);
+        low.setImageResource(R.drawable.psyducksprite);
+        high.setVisibility(View.INVISIBLE);
     }
 }
