@@ -1,4 +1,4 @@
 package com.example.psyducklifeandroid;
 
-public class obsticlesClass {
+public class Obstacles {
 }
