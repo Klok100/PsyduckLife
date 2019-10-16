@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/background_one"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="752dp"
+        android:layout_height="441dp"
         android:src="@drawable/landscapebackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,15 +18,15 @@
 
     <ImageView
         android:id="@+id/background_two"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="753dp"
+        android:layout_height="440dp"
         android:src="@drawable/landscapebackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.508" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -49,11 +49,11 @@
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:onClick="upClick"
         android:layout_width="81dp"
         android:layout_height="59dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="upClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/up" />
@@ -63,22 +63,34 @@
         android:layout_width="75dp"
         android:layout_height="55dp"
         android:layout_marginStart="52dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="20dp"
         android:onClick="downClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageButton"
         app:srcCompat="@drawable/down" />
 
     <ImageView
-        android:id="@+id/graveler"
-        android:layout_width="92dp"
-        android:layout_height="57dp"
+        android:id="@+id/graveler1"
+        android:layout_width="730dp"
+        android:layout_height="61dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.774"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.7"
+        app:layout_constraintVertical_bias="0.751"
+        app:srcCompat="@drawable/graveler" />
+
+    <ImageView
+        android:id="@+id/graveler2"
+        android:layout_width="730dp"
+        android:layout_height="61dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.751"
         app:srcCompat="@drawable/graveler" />
 
 

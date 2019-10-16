@@ -17,8 +17,8 @@ public class RunningActivity extends AppCompatActivity {
 
         final ImageView backgroundOne = findViewById(R.id.background_one);
         final ImageView backgroundTwo = findViewById(R.id.background_two);
-        //final ImageView obstacleOne = findViewById(R.id.graveler1);
-        //final ImageView obstacleTwo = findViewById(R.id.graveler2);
+        final ImageView obstacleOne = findViewById(R.id.graveler1);
+        final ImageView obstacleTwo = findViewById(R.id.graveler2);
 
         final ValueAnimator animator = ValueAnimator.ofFloat(1.0f, 0.0f);
         animator.setRepeatCount(ValueAnimator.INFINITE);
@@ -32,6 +32,11 @@ public class RunningActivity extends AppCompatActivity {
                 final float translationX = width * progress;
                 backgroundOne.setTranslationX(translationX);
                 backgroundTwo.setTranslationX(translationX - width);
+
+                final float widthGraveler = obstacleOne.getWidth();
+                final float translationXGraveler = widthGraveler * progress;
+                obstacleOne.setTranslationX(translationXGraveler);
+                obstacleTwo.setTranslationX(translationXGraveler - widthGraveler);
             }
         });
         animator.start();
