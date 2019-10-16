@@ -17,11 +17,13 @@ public class RunningActivity extends AppCompatActivity {
 
         final ImageView backgroundOne = findViewById(R.id.background_one);
         final ImageView backgroundTwo = findViewById(R.id.background_two);
+        //final ImageView obstacleOne = findViewById(R.id.graveler1);
+        //final ImageView obstacleTwo = findViewById(R.id.graveler2);
 
         final ValueAnimator animator = ValueAnimator.ofFloat(1.0f, 0.0f);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.setInterpolator(new LinearInterpolator());
-        animator.setDuration(10000L);
+        animator.setDuration(5000L);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
