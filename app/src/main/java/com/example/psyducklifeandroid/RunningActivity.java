@@ -8,6 +8,11 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+import static java.lang.Math.random;
+
 public class RunningActivity extends AppCompatActivity {
 
     @Override
@@ -15,8 +20,8 @@ public class RunningActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_running);
 
-        final ImageView backgroundOne = findViewById(R.id.background_one);
-        final ImageView backgroundTwo = findViewById(R.id.background_two);
+        final ImageView backgroundOne = findViewById(R.id.runningBackground1);
+        final ImageView backgroundTwo = findViewById(R.id.runningBackground2);
         final ImageView obstacleOne = findViewById(R.id.graveler1);
         final ImageView obstacleTwo = findViewById(R.id.graveler2);
 
@@ -44,24 +49,27 @@ public class RunningActivity extends AppCompatActivity {
     }
 
     public void upClick(View v){
-        ImageView high = findViewById(R.id.imageViewdoes);
-        ImageView low = findViewById(R.id.imageView);
+        ImageView high = findViewById(R.id.airPsyduck);
+        ImageView low = findViewById(R.id.groundPsyduck);
 
         high.setVisibility(View.VISIBLE);
         high.setImageResource(R.drawable.psyducksprite);
         low.setVisibility(View.INVISIBLE);
 
-
-
-
     }
 
     public void downClick(View v){
-        ImageView high = findViewById(R.id.imageViewdoes);
-        ImageView low = findViewById(R.id.imageView);
+        ImageView high = findViewById(R.id.airPsyduck);
+        ImageView low = findViewById(R.id.groundPsyduck);
 
         low.setVisibility(View.VISIBLE);
         low.setImageResource(R.drawable.psyducksprite);
         high.setVisibility(View.INVISIBLE);
+    }
+
+    public void randomObstacles(View v){
+        int randInt = (int) Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+        ArrayList <Obstacles> randObstacles = new ArrayList<>();
+
     }
 }

@@ -7,7 +7,7 @@
     tools:context=".FlyingActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/groundPsyduck"
         android:layout_width="762dp"
         android:layout_height="438dp"
         app:layout_constraintBottom_toBottomOf="parent"
