@@ -26,8 +26,8 @@ public class SwimmingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swimming);
 
-        final ImageView backgroundOne = (ImageView) findViewById(R.id.swimmingBackground1);
-        final ImageView backgroundTwo = (ImageView) findViewById(R.id.swimmingBackground2);
+        final ImageView backgroundOne = findViewById(R.id.swimmingBackground1);
+        final ImageView backgroundTwo = findViewById(R.id.swimmingBackground2);
 
         final ValueAnimator animator = ValueAnimator.ofFloat(1.0f, 0.0f);
         animator.setRepeatCount(ValueAnimator.INFINITE);
@@ -71,6 +71,31 @@ public class SwimmingActivity extends AppCompatActivity {
                 handler.postDelayed(this,1000);
             }
         });
+    }
+
+    public void upClick(View v) {
+        ImageView high = findViewById(R.id.imageViewdoes);
+        ImageView middle = findViewById(R.id.imageView);
+        ImageView low = findViewById(R.id.imageViewdoes2);
+
+        high.setVisibility(View.VISIBLE);
+        high.setImageResource(R.drawable.psyducksprite);
+        low.setVisibility(View.INVISIBLE);
+        middle.setVisibility(View.INVISIBLE);
+
+    }
+
+    public void downClick(View v) {
+        ImageView high = findViewById(R.id.imageViewdoes);
+        ImageView middle = findViewById(R.id.imageView);
+        ImageView low = findViewById(R.id.imageViewdoes2);
+
+
+        middle.setVisibility(View.INVISIBLE);
+        low.setImageResource(R.drawable.psyducksprite);
+        high.setVisibility(View.INVISIBLE);
+        low.setVisibility(View.VISIBLE);
+
     }
 
     public void onClickStart(View view){
