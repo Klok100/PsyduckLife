@@ -62,7 +62,7 @@
         android:id="@+id/downArrow"
         android:layout_width="75dp"
         android:layout_height="55dp"
-        android:layout_marginStart="52dp"
+        android:layout_marginStart="32dp"
         android:layout_marginBottom="20dp"
         android:onClick="downClick"
         app:layout_constraintBottom_toBottomOf="parent"

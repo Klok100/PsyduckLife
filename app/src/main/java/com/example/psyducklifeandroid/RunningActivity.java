@@ -8,11 +8,6 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
-import static java.lang.Math.random;
-
 public class RunningActivity extends AppCompatActivity {
 
     @Override
@@ -56,6 +51,9 @@ public class RunningActivity extends AppCompatActivity {
         high.setImageResource(R.drawable.psyducksprite);
         low.setVisibility(View.INVISIBLE);
 
+
+
+
     }
 
     public void downClick(View v){
@@ -65,11 +63,5 @@ public class RunningActivity extends AppCompatActivity {
         low.setVisibility(View.VISIBLE);
         low.setImageResource(R.drawable.psyducksprite);
         high.setVisibility(View.INVISIBLE);
-    }
-
-    public void randomObstacles(View v){
-        int randInt = (int) Math.floor(Math.random() * (4 - 1 + 1)) + 1;
-        ArrayList <Obstacles> randObstacles = new ArrayList<>();
-
     }
 }
