@@ -81,6 +81,7 @@ public class SwimmingActivity extends AppCompatActivity {
         high.setVisibility(View.VISIBLE);
         high.setImageResource(R.drawable.psyducksprite);
         low.setVisibility(View.INVISIBLE);
+        middle.setVisibility(View.INVISIBLE);
 
     }
 
