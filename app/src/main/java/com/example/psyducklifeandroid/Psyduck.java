@@ -1,6 +1,6 @@
 package com.example.psyducklifeandroid;
 
-public class Pokemon {
+public class Psyduck {
 
     public String name;
     public int hp;
@@ -12,7 +12,7 @@ public class Pokemon {
     public int exp;
     public int expcap;
 
-    public Pokemon(String name, int hp, int atk, int def, int spatk, int spdef, int spd, int exp, int expcap){
+    public Psyduck(){
         this.name = "Psyduck";
         this.hp = 50;
         this.atk = 52;

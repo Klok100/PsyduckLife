@@ -10,5 +10,15 @@ public class BattleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Psyduck psyduck = new Psyduck();
+        int randEnemy = (int) Math.floor(Math.random() * 4) + 1;
+
+
     }
 }
