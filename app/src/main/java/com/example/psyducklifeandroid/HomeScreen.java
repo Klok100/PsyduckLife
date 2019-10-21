@@ -37,4 +37,12 @@ public class HomeScreen extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    public void shareInfoToBattle(View v) {
+
+        Intent intent = new Intent(this, BattleActivity.class);
+
+        startActivity(intent);
+
+    }
 }
