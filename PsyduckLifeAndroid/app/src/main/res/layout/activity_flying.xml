@@ -8,7 +8,7 @@
 
     <ImageView
         android:id="@+id/swimmingBackground1"
-        android:layout_width="1414dp"
+        android:layout_width="@dimen/flyingbackgroundwidth"
         android:layout_height="717dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,7 +19,7 @@
 
     <ImageView
         android:id="@+id/swimmingBackground2"
-        android:layout_width="1414dp"
+        android:layout_width="@dimen/flyingbackgroundwidth"
         android:layout_height="717dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

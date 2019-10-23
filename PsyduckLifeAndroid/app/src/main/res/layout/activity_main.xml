@@ -38,7 +38,7 @@
         app:srcCompat="@drawable/logo" />
 
     <ImageView
-        android:id="@+id/psyduckImage"
+        android:id="@+id/battleBackground"
         android:layout_width="87dp"
         android:layout_height="154dp"
         android:layout_marginTop="47dp"

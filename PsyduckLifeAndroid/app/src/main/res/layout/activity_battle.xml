@@ -12,10 +12,9 @@
         android:layout_height="459dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.916"
+        app:layout_constraintVertical_bias="0.711"
         app:srcCompat="@drawable/pokemonbattlebackground" />
 
     <ImageView
@@ -27,4 +26,66 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/psyduck" />
+
+    <TextView
+        android:id="@+id/psyduckHP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="244dp"
+        android:text="HP: 100"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/enemyPokemon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="124dp"
+        android:layout_marginEnd="116dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/onix" />
+
+    <ImageView
+        android:id="@+id/normalType"
+        android:layout_width="66dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="448dp"
+        android:layout_marginTop="312dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/normal" />
+
+    <TextView
+        android:id="@+id/scratchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginTop="312dp"
+        android:text="Scratch"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        app:layout_constraintStart_toEndOf="@+id/normalType"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/waterType"
+        android:layout_width="66dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="576dp"
+        android:layout_marginTop="312dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/water" />
+
+    <TextView
+        android:id="@+id/waterpulseMove"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginTop="312dp"
+        android:text="Water Pulse"
+        android:textColor="#0037FF"
+        app:layout_constraintStart_toEndOf="@+id/waterType"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
