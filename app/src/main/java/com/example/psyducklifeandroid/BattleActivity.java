@@ -33,7 +33,7 @@ public class BattleActivity extends AppCompatActivity {
         enemyPokemon.add(new EnemyPokemon("Nidoqueen", 90, 82, 87, 75, 85, 76));
 
         onixMoves.add(new Moves("Stone Edge", "rock", 100, 80));
-        
+
 
     }
 }
