@@ -5,13 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
-import android.widget.TextView;
-
-import java.util.Locale;
 
 public class SwimmingActivity extends AppCompatActivity {
 
@@ -75,7 +71,7 @@ public class SwimmingActivity extends AppCompatActivity {
 
     public void upClick(View v) {
         ImageView high = findViewById(R.id.imageViewdoes);
-        ImageView middle = findViewById(R.id.imageView);
+        ImageView middle = findViewById(R.id.battleBackground);
         ImageView low = findViewById(R.id.imageViewdoes2);
 
         high.setVisibility(View.VISIBLE);
@@ -87,7 +83,7 @@ public class SwimmingActivity extends AppCompatActivity {
 
     public void downClick(View v) {
         ImageView high = findViewById(R.id.imageViewdoes);
-        ImageView middle = findViewById(R.id.imageView);
+        ImageView middle = findViewById(R.id.battleBackground);
         ImageView low = findViewById(R.id.imageViewdoes2);
 
 

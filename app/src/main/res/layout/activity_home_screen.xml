@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/homrscreenbackground" />
 
     <ImageView
-        android:id="@+id/psyduckImage"
+        android:id="@+id/battleBackground"
         android:layout_width="83dp"
         android:layout_height="165dp"
         android:layout_marginTop="152dp"
@@ -37,7 +37,7 @@
         android:onClick="shareInfoToFly"
         app:layout_constraintEnd_toStartOf="@+id/runningButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/psyduckImage"
+        app:layout_constraintTop_toBottomOf="@+id/battleBackground"
         app:srcCompat="@drawable/flying" />
 
     <ImageView
@@ -47,7 +47,7 @@
         android:layout_marginEnd="52dp"
         android:onClick="shareInfoToRun"
         app:layout_constraintEnd_toStartOf="@+id/swimmingButton"
-        app:layout_constraintTop_toBottomOf="@+id/psyduckImage"
+        app:layout_constraintTop_toBottomOf="@+id/battleBackground"
         app:srcCompat="@drawable/normal" />
 
     <ImageView
@@ -57,7 +57,7 @@
         android:layout_marginEnd="52dp"
         android:onClick="shareInfoToSwim"
         app:layout_constraintEnd_toStartOf="@+id/battleButton"
-        app:layout_constraintTop_toBottomOf="@+id/psyduckImage"
+        app:layout_constraintTop_toBottomOf="@+id/battleBackground"
         app:srcCompat="@drawable/water" />
 
     <ImageView
@@ -67,7 +67,30 @@
         android:layout_marginEnd="84dp"
         android:onClick="shareInfoToBattle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/psyduckImage"
+        app:layout_constraintTop_toBottomOf="@+id/battleBackground"
         app:srcCompat="@drawable/pokemonbattlebutton" />
+
+    <TextView
+        android:id="@+id/chooseLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="168dp"
+        android:text="Enter Psyduck Level to Battle:"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="151dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="184dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/chooseLevel"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

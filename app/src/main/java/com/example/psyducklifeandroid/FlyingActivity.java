@@ -72,7 +72,7 @@ public class FlyingActivity extends AppCompatActivity {
 
     public void upClick(View v) {
         ImageView one = findViewById(R.id.imageView1);
-        ImageView two = findViewById(R.id.imageView2);
+        ImageView two = findViewById(R.id.psyduckImage);
         ImageView three = findViewById(R.id.imageView3);
         ImageView four = findViewById(R.id.imageView4);
 
@@ -119,7 +119,7 @@ public class FlyingActivity extends AppCompatActivity {
 
     public void downClick(View v) {
         ImageView one = findViewById(R.id.imageView1);
-        ImageView two = findViewById(R.id.imageView2);
+        ImageView two = findViewById(R.id.psyduckImage);
         ImageView three = findViewById(R.id.imageView3);
         ImageView four = findViewById(R.id.imageView4);
 
