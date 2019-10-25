@@ -2,6 +2,7 @@ package com.example.psyducklifeandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 
 public class BattleActivity extends AppCompatActivity {
 
+    public static final String LEVEL = "1";
+
     private static Psyduck psyduck = new Psyduck();
     private static ArrayList<EnemyPokemon> enemyPokemon = new ArrayList<>();
     private static ArrayList<Moves> psyduckMoves = new ArrayList<>();
@@ -18,6 +21,8 @@ public class BattleActivity extends AppCompatActivity {
     private static ArrayList<Moves> starmieMoves = new ArrayList<>();
     private static ArrayList<Moves> raichuMoves = new ArrayList<>();
     private static ArrayList<Moves> vileplumeMoves = new ArrayList<>();
+    private static double psyduckOrigHP = 0;
+    private static double enemyPokemonOrigHP = 0;
 
     private static boolean isRunning = true;
 
@@ -25,29 +30,35 @@ public class BattleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle);
+
+        psyduck.resetStats();
     }
 
     public int setEnemy(){
-        int level = psyduck.getLevel();
+        //int level = psyduck.getLevel();
         ImageView onixImg = (ImageView) findViewById(R.id.onixImage);
         ImageView starmieImage = (ImageView) findViewById(R.id.starmieImage);
         ImageView raichuImage = (ImageView) findViewById(R.id.raichuImage);
         ImageView vileplumeImage = (ImageView) findViewById(R.id.vileplumeImage);
         TextView enemyPokemonHP = (TextView) findViewById(R.id.enemyPokemonHP);
 
-        if (level <= 5){
+        Intent intent = getIntent();
+        String levelString = intent.getStringExtra(LEVEL);
+        int levelNum = Integer.parseInt(levelString);
+
+        if (levelNum <= 5){
             onixImg.setVisibility(View.VISIBLE);
             enemyPokemonHP.setText("HP: " + String.valueOf(enemyPokemon.get(0).getHp()));
             return 0;
         }
 
-        else if (level <= 10){
+        else if (levelNum <= 15){
             starmieImage.setVisibility(View.VISIBLE);
             enemyPokemonHP.setText("HP: " + String.valueOf(enemyPokemon.get(1).getHp()));
             return 1;
         }
 
-        else if (level <= 15){
+        else if (levelNum <= 15){
             raichuImage.setVisibility(View.VISIBLE);
             enemyPokemonHP.setText("HP: " + String.valueOf(enemyPokemon.get(2).getHp()));
             return 2;
@@ -60,9 +71,22 @@ public class BattleActivity extends AppCompatActivity {
         }
     }
 
+    public void startGame(){
+        psyduckOrigHP = psyduck.getHp();
+        enemyPokemonOrigHP = enemyPokemon.get(setEnemy()).getHp();
+    }
+
     @Override
     protected void onStart(){
         super.onStart();
+
+        Intent intent = getIntent();
+        String levelString = intent.getStringExtra(LEVEL);
+        int levelNum = Integer.parseInt(levelString);
+
+        for (int i = 0; i < levelNum; i++){
+            psyduck.levelUp();
+        }
 
         TextView psyduckHP = (TextView) findViewById(R.id.psyduckHP);
         psyduckHP.setText("HP: " + String.valueOf(psyduck.getHp()));
@@ -98,13 +122,18 @@ public class BattleActivity extends AppCompatActivity {
         psyduckMoves.add(new Moves("Ice Beam", "Ice", 90, 100));
 
         setEnemy();
+        startGame();
     }
 
     public int random(){
         return (int) (Math.floor(Math.random() * 4));
     }
 
-    public void psyduckAtk(EnemyPokemon enemy, TextView enemyPokemonHP, Moves move, TextView psyduckMsg){
+
+
+    public void psyduckAtk(EnemyPokemon enemy, TextView enemyPokemonHP, Moves move, TextView psyduckMsg, double enemyPokemonOrigHP){
+        ImageView backButton = (ImageView) findViewById(R.id.backButton);
+
         double psyduckBaseDmg = move.getAtkpow();
         double psyduckBaseAtk = psyduck.getAtk();
         double psyduckDmg = psyduckBaseDmg * psyduckBaseAtk;
@@ -116,11 +145,15 @@ public class BattleActivity extends AppCompatActivity {
         if(enemyPokemon.get(setEnemy()).getHp() <= 0){
             enemyPokemon.get(setEnemy()).setHp(0);
             enemyPokemonHP.setText("HP: " + String.valueOf(enemyPokemon.get(setEnemy()).getHp()));
+            enemyPokemon.get(setEnemy()).setHp(enemyPokemonOrigHP);
             isRunning = false;
+            backButton.setVisibility(View.VISIBLE);
         }
     }
 
-    public void enemyAtk(EnemyPokemon enemy, TextView psyduckHP, Moves enemyMove, TextView enemyMsg){
+    public void enemyAtk(EnemyPokemon enemy, TextView psyduckHP, Moves enemyMove, TextView enemyMsg, double psyduckOrigHP){
+        ImageView backButton = (ImageView) findViewById(R.id.backButton);
+
         double enemyBaseDmg = enemyMove.getAtkpow();
         double enemyBaseAtk = enemy.getAtk();
         double enemyDmg = enemyBaseDmg * enemyBaseAtk;
@@ -132,10 +165,11 @@ public class BattleActivity extends AppCompatActivity {
         if(psyduck.getHp() <= 0){
             psyduck.setHp(0);
             psyduckHP.setText("HP: " + String.valueOf(psyduck.getHp()));
+            psyduck.setHp(psyduckOrigHP);
             isRunning = false;
+            backButton.setVisibility(View.VISIBLE);
         }
     }
-
 
     public void scratch(View v){
         if(isRunning){
@@ -147,10 +181,10 @@ public class BattleActivity extends AppCompatActivity {
             EnemyPokemon enemy = enemyPokemon.get(setEnemy());
 
             Moves scratch = psyduckMoves.get(0);
-            psyduckAtk(enemy, enemyPokemonHP, scratch, psyduckMsg);
+            psyduckAtk(enemy, enemyPokemonHP, scratch, psyduckMsg, enemyPokemonOrigHP);
 
             Moves enemyMove = enemy.getEnemyMoves().get(random());
-            enemyAtk(enemy, psyduckHP, enemyMove, enemyMsg);
+            enemyAtk(enemy, psyduckHP, enemyMove, enemyMsg, psyduckOrigHP);
         }
     }
 
@@ -160,13 +194,14 @@ public class BattleActivity extends AppCompatActivity {
             TextView psyduckHP = (TextView) findViewById(R.id.psyduckHP);
             TextView psyduckMsg = (TextView) findViewById(R.id.psyduckAtkMsg);
             TextView enemyMsg = (TextView) findViewById(R.id.enemyAtkMsg);
+
             EnemyPokemon enemy = enemyPokemon.get(setEnemy());
 
             Moves waterpulse = psyduckMoves.get(1);
-            psyduckAtk(enemy, enemyPokemonHP, waterpulse, psyduckMsg);
+            psyduckAtk(enemy, enemyPokemonHP, waterpulse, psyduckMsg, enemyPokemonOrigHP);
 
             Moves enemyMove = enemy.getEnemyMoves().get(random());
-            enemyAtk(enemy, psyduckHP, enemyMove, enemyMsg);
+            enemyAtk(enemy, psyduckHP, enemyMove, enemyMsg, psyduckOrigHP);
         }
     }
 
@@ -176,13 +211,15 @@ public class BattleActivity extends AppCompatActivity {
             TextView psyduckHP = (TextView) findViewById(R.id.psyduckHP);
             TextView psyduckMsg = (TextView) findViewById(R.id.psyduckAtkMsg);
             TextView enemyMsg = (TextView) findViewById(R.id.enemyAtkMsg);
+
             EnemyPokemon enemy = enemyPokemon.get(setEnemy());
 
+
             Moves psychic = psyduckMoves.get(2);
-            psyduckAtk(enemy, enemyPokemonHP, psychic, psyduckMsg);
+            psyduckAtk(enemy, enemyPokemonHP, psychic, psyduckMsg, enemyPokemonOrigHP);
 
             Moves enemyMove = enemy.getEnemyMoves().get(random());
-            enemyAtk(enemy, psyduckHP, enemyMove, enemyMsg);
+            enemyAtk(enemy, psyduckHP, enemyMove, enemyMsg, psyduckOrigHP);
         }
     }
 
@@ -192,14 +229,23 @@ public class BattleActivity extends AppCompatActivity {
             TextView psyduckHP = (TextView) findViewById(R.id.psyduckHP);
             TextView psyduckMsg = (TextView) findViewById(R.id.psyduckAtkMsg);
             TextView enemyMsg = (TextView) findViewById(R.id.enemyAtkMsg);
+
             EnemyPokemon enemy = enemyPokemon.get(setEnemy());
 
             Moves icebeam = psyduckMoves.get(3);
-            psyduckAtk(enemy, enemyPokemonHP, icebeam, psyduckMsg);
+            psyduckAtk(enemy, enemyPokemonHP, icebeam, psyduckMsg, enemyPokemonOrigHP);
 
             Moves enemyMove = enemy.getEnemyMoves().get(random());
-            enemyAtk(enemy, psyduckHP, enemyMove, enemyMsg);
+            enemyAtk(enemy, psyduckHP, enemyMove, enemyMsg, psyduckOrigHP);
         }
     }
+
+    public void goBack(View v){
+        isRunning = true;
+        Intent intent = new Intent(this, HomeScreen.class);
+        startActivity(intent);
+    }
 }
+
+
 

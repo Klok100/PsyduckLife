@@ -8,14 +8,43 @@ import android.os.Handler;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class SwimmingActivity extends AppCompatActivity {
 
-    int x = 1;
     int seconds = 0;
-    boolean running = true;
-    boolean wasRunning = true;
-    int timeTotal = 0;
+    boolean running = false;
+    boolean wasRunning = false;
+
+    private void runTimer(){
+        final TextView timeView = (TextView) findViewById(R.id.textView);
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (running && seconds < 3){
+                    seconds++;
+                }
+            }
+        });
+    }
+
+    TextView timerTextView;
+    long startTime = 0;
+
+    Handler timerHandler = new Handler();
+    Runnable timerRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+            long millis = System.currentTimeMillis() - startTime;
+            int seconds = (int) (millis / 1000);
+
+            timerTextView.setText(String.format("%02d", seconds));
+
+            timerHandler.postDelayed(this, 500);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,36 +66,14 @@ public class SwimmingActivity extends AppCompatActivity {
                 final float translationX = width * progress;
                 backgroundOne.setTranslationX(translationX);
                 backgroundTwo.setTranslationX(translationX - width);
-                if(timeTotal == 5) {
-                    x += 1;
-                    animator.setDuration(5000L + x);
-                    timeTotal = 0;
-                }
             }
         });
         animator.start();
 
-        if (savedInstanceState != null){
-            seconds = savedInstanceState.getInt("seconds");
-            running = savedInstanceState.getBoolean("running");
-            wasRunning = savedInstanceState.getBoolean("wasRunning");
-        }
-        runTimer();
+        timerTextView = (TextView) findViewById(R.id.textView);
 
-    }
-
-    private void runTimer(){
-        final Handler handler = new Handler();
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (running) {
-                    seconds++;
-                }
-                timeTotal = seconds;
-                handler.postDelayed(this,1000);
-            }
-        });
+        startTime = System.currentTimeMillis();
+        timerHandler.postDelayed(timerRunnable, 0);
     }
 
     public void upClick(View v) {
