@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PsyduckLifeAndroid</string>
+    <string name="DirectionsFlying">Click the top of the screen to go up and click the bottom of the screen to go down. Avoid the Gravelers!</string>
 </resources>
