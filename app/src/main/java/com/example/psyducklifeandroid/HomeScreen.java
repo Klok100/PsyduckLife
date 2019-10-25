@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class HomeScreen extends AppCompatActivity {
 
@@ -40,9 +42,35 @@ public class HomeScreen extends AppCompatActivity {
 
     public void shareInfoToBattle(View v) {
 
-        Intent intent = new Intent(this, BattleActivity.class);
+        int num1, num2;
 
-        startActivity(intent);
+        try {
+
+            EditText level = (EditText) findViewById(R.id.enterLevel);
+
+            String levelString = level.getText().toString();
+
+            if (levelString.equals("") || Integer.parseInt(levelString) > 20 || Integer.parseInt(levelString) < 1)
+            {
+                num1 = 0;
+                num2 = 50/num1;
+            }
+
+            Intent intent = new Intent(this, BattleActivity.class);
+
+            intent.putExtra(BattleActivity.LEVEL, levelString);
+
+            startActivity(intent);
+        }
+
+        catch(Exception e){
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Please enter a level for Psyduck within 1 - 20",
+                    Toast.LENGTH_SHORT);
+
+            toast.show();
+        }
 
     }
 }
+

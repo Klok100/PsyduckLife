@@ -97,14 +97,26 @@ public class Psyduck {
     }
 
     public void levelUp(){
-        this.hp += 10;
-        this.atk += 3;
-        this.def += 3;
-        this.spatk += 5;
-        this.spdef += 5;
+        this.hp += 5;
+        this.atk += 2;
+        this.def += 2;
+        this.spatk += 4;
+        this.spdef += 4;
         this.level += 1;
         this.exp = 0;
         this.expcap += 10;
+    }
+
+    public void resetStats(){
+        this.name = "Psyduck";
+        this.hp = 50;
+        this.atk = 32;
+        this.def = 48;
+        this.spatk = 65;
+        this.spdef = 50;
+        this.level = 15;
+        this.exp = 0;
+        this.expcap = 50;
     }
 }
 

@@ -82,15 +82,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/enterLevel"
         android:layout_width="151dp"
         android:layout_height="35dp"
         android:layout_marginStart="184dp"
         android:layout_marginTop="10dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:hint="Enter Level"
+        android:inputType="number"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/chooseLevel"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
