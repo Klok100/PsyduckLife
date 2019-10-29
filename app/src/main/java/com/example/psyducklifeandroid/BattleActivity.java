@@ -26,6 +26,7 @@ public class BattleActivity extends AppCompatActivity {
 
     private static boolean isRunning = true;
 
+    // Creates all of the basic elements on the screen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +35,7 @@ public class BattleActivity extends AppCompatActivity {
         psyduck.resetStats();
     }
 
+    // Decides what enemy Pokemon the user has to battle based on Psyduck's current level
     public int setEnemy(){
         //int level = psyduck.getLevel();
         ImageView onixImg = (ImageView) findViewById(R.id.onixImage);
@@ -71,11 +73,13 @@ public class BattleActivity extends AppCompatActivity {
         }
     }
 
+    // Sets the starting HP of both Pokemon
     public void startGame(){
         psyduckOrigHP = psyduck.getHp();
         enemyPokemonOrigHP = enemyPokemon.get(setEnemy()).getHp();
     }
 
+    // After the basic elements of the app have been created in the onCreate, create all of the Pokemon with their given moves
     @Override
     protected void onStart(){
         super.onStart();
@@ -125,35 +129,53 @@ public class BattleActivity extends AppCompatActivity {
         startGame();
     }
 
-    public int random(){
-        return (int) (Math.floor(Math.random() * 4));
+    // Generates a random integer based on parameters entered, inclusive
+    public int random(int min, int max){
+        return (int) (Math.floor(Math.random() * (max - min + 1))) + 1;
     }
 
+    // Uses the accuracy of a given move to see if the move hit or not
+    public boolean checkAccuracy(Moves move){
+        int accuracy = move.getAcc();
+        int random  = random(1, 100);
+        if (random <= accuracy){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
 
     public void psyduckAtk(EnemyPokemon enemy, TextView enemyPokemonHP, Moves move, TextView psyduckMsg, double enemyPokemonOrigHP){
         ImageView backButton = (ImageView) findViewById(R.id.backButton);
 
-        double psyduckBaseDmg = move.getAtkpow();
-        double psyduckBaseAtk = psyduck.getAtk();
-        double psyduckDmg = psyduckBaseDmg * psyduckBaseAtk;
-        double enemyDef = enemy.getDef();
-        double psyduckTotalDmg = Math.round(psyduckDmg / 100 * (psyduckBaseAtk / enemyDef));
-        enemy.setHp(Math.round(enemy.getHp() - psyduckTotalDmg));
-        enemyPokemonHP.setText("HP: " + String.valueOf(enemyPokemon.get(setEnemy()).getHp()));
-        psyduckMsg.setText("Psyduck used " + move.getName() + " and dealt " + psyduckTotalDmg + " damage to " + enemy.getName() + "!");
-        if(enemyPokemon.get(setEnemy()).getHp() <= 0){
-            enemyPokemon.get(setEnemy()).setHp(0);
+        if (checkAccuracy(move)){
+            double psyduckBaseDmg = move.getAtkpow();
+            double psyduckBaseAtk = psyduck.getAtk();
+            double psyduckDmg = psyduckBaseDmg * psyduckBaseAtk;
+            double enemyDef = enemy.getDef();
+            double psyduckTotalDmg = Math.round(psyduckDmg / 100 * (psyduckBaseAtk / enemyDef));
+            enemy.setHp(Math.round(enemy.getHp() - psyduckTotalDmg));
             enemyPokemonHP.setText("HP: " + String.valueOf(enemyPokemon.get(setEnemy()).getHp()));
-            enemyPokemon.get(setEnemy()).setHp(enemyPokemonOrigHP);
-            isRunning = false;
-            backButton.setVisibility(View.VISIBLE);
+            psyduckMsg.setText("Psyduck used " + move.getName() + " and dealt " + psyduckTotalDmg + " damage to " + enemy.getName() + "!");
+            if(enemyPokemon.get(setEnemy()).getHp() <= 0){
+                enemyPokemon.get(setEnemy()).setHp(0);
+                enemyPokemonHP.setText("HP: " + String.valueOf(enemyPokemon.get(setEnemy()).getHp()));
+                enemyPokemon.get(setEnemy()).setHp(enemyPokemonOrigHP);
+                isRunning = false;
+                backButton.setVisibility(View.VISIBLE);
+            }
+        }
+
+        else{
+            psyduckMsg.setText("Psyduck used " + move.getName() + ", but the attack missed!");
         }
     }
 
     public void enemyAtk(EnemyPokemon enemy, TextView psyduckHP, Moves enemyMove, TextView enemyMsg, double psyduckOrigHP){
         ImageView backButton = (ImageView) findViewById(R.id.backButton);
-
+        
         double enemyBaseDmg = enemyMove.getAtkpow();
         double enemyBaseAtk = enemy.getAtk();
         double enemyDmg = enemyBaseDmg * enemyBaseAtk;
@@ -183,7 +205,7 @@ public class BattleActivity extends AppCompatActivity {
             Moves scratch = psyduckMoves.get(0);
             psyduckAtk(enemy, enemyPokemonHP, scratch, psyduckMsg, enemyPokemonOrigHP);
 
-            Moves enemyMove = enemy.getEnemyMoves().get(random());
+            Moves enemyMove = enemy.getEnemyMoves().get(random(1, 4));
             enemyAtk(enemy, psyduckHP, enemyMove, enemyMsg, psyduckOrigHP);
         }
     }
@@ -200,7 +222,7 @@ public class BattleActivity extends AppCompatActivity {
             Moves waterpulse = psyduckMoves.get(1);
             psyduckAtk(enemy, enemyPokemonHP, waterpulse, psyduckMsg, enemyPokemonOrigHP);
 
-            Moves enemyMove = enemy.getEnemyMoves().get(random());
+            Moves enemyMove = enemy.getEnemyMoves().get(random(1, 4));
             enemyAtk(enemy, psyduckHP, enemyMove, enemyMsg, psyduckOrigHP);
         }
     }
@@ -218,7 +240,7 @@ public class BattleActivity extends AppCompatActivity {
             Moves psychic = psyduckMoves.get(2);
             psyduckAtk(enemy, enemyPokemonHP, psychic, psyduckMsg, enemyPokemonOrigHP);
 
-            Moves enemyMove = enemy.getEnemyMoves().get(random());
+            Moves enemyMove = enemy.getEnemyMoves().get(random(1, 4));
             enemyAtk(enemy, psyduckHP, enemyMove, enemyMsg, psyduckOrigHP);
         }
     }
@@ -235,7 +257,7 @@ public class BattleActivity extends AppCompatActivity {
             Moves icebeam = psyduckMoves.get(3);
             psyduckAtk(enemy, enemyPokemonHP, icebeam, psyduckMsg, enemyPokemonOrigHP);
 
-            Moves enemyMove = enemy.getEnemyMoves().get(random());
+            Moves enemyMove = enemy.getEnemyMoves().get(random(1, 4));
             enemyAtk(enemy, psyduckHP, enemyMove, enemyMsg, psyduckOrigHP);
         }
     }
