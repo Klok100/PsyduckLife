@@ -16,8 +16,20 @@ public class SwimmingActivity extends AppCompatActivity {
     boolean running = false;
     boolean wasRunning = false;
 
+    TextView instructions;
+
+    private View.OnClickListener instructionsOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            instructions = findViewById(R.id.instructions);
+            instructions.setVisibility(View.GONE);
+
+            startGame();
+        }
+    };
+
     private void runTimer(){
-        final TextView timeView = (TextView) findViewById(R.id.textView);
+        final TextView timeView = findViewById(R.id.textView);
         final Handler handler = new Handler();
         handler.post(new Runnable() {
             @Override
@@ -51,6 +63,13 @@ public class SwimmingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swimming);
 
+        instructions = findViewById(R.id.instructions);
+
+        instructions.setOnClickListener(instructionsOnClickListener);
+    }
+
+    public void startGame() {
+
         final ImageView backgroundOne = findViewById(R.id.swimmingBackground1);
         final ImageView backgroundTwo = findViewById(R.id.swimmingBackground2);
 
@@ -70,10 +89,11 @@ public class SwimmingActivity extends AppCompatActivity {
         });
         animator.start();
 
-        timerTextView = (TextView) findViewById(R.id.textView);
+        timerTextView = findViewById(R.id.textView);
 
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(timerRunnable, 0);
+
     }
 
     public void upClick(View v) {
