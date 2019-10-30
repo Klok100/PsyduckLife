@@ -9,8 +9,14 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.os.CountDownTimer;
 public class RunningActivity extends AppCompatActivity {
+    public static final long START_TIME_IN_MILLIS = 1500;
+    private CountDownTimer myTimer;
+    private boolean mTimer;
+    private long myTimeLeft = START_TIME_IN_MILLIS;
+    private ImageView up;
+
 
     int seconds = 0;
     boolean running = false;
@@ -38,7 +44,7 @@ public class RunningActivity extends AppCompatActivity {
         @Override
         public void run() {
             long millis = System.currentTimeMillis() - startTime;
-            int seconds = (int) (millis / 1000);
+            int seconds = (int) (millis / 500);
 
             timerTextView.setText(String.format("%02d", seconds));
 
@@ -83,7 +89,43 @@ public class RunningActivity extends AppCompatActivity {
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(timerRunnable, 0);
 
+        up = findViewById(R.id.imageButton);
 
+        up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                upClick(v);
+                if (mTimer) {
+                    resetTimer();
+                } else {
+                    startTimer();
+                }
+            }
+        });
+
+    }
+
+    private void startTimer() {
+         myTimer =  new  CountDownTimer(myTimeLeft, 1500) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                myTimeLeft = millisUntilFinished;
+
+            }
+
+             //@Override
+            public void onFinish() {
+                mTimer = false;
+                    downClick();
+            }
+        }.start();
+
+        mTimer = true;
+
+    }
+
+    private void resetTimer() {
+        myTimeLeft = START_TIME_IN_MILLIS;
     }
 
     public void upClick(View v){
@@ -97,7 +139,7 @@ public class RunningActivity extends AppCompatActivity {
 
     }
 
-    public void downClick(View v){
+    public void downClick(){
         ImageView high = findViewById(R.id.airPsyduck);
         ImageView low = findViewById(R.id.groundPsyduck);
 

@@ -49,21 +49,13 @@
 
     <ImageView
         android:id="@+id/imageButton"
-        android:layout_width="match_parent"
-        android:layout_height="190dp"
-        android:layout_marginStart="0dp"
+        android:layout_width="699dp"
+        android:layout_height="451dp"
         android:onClick="upClick"
+        app:layout_constraintBottom_toBottomOf="@+id/runningBackground2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageButton2"
-        android:layout_width="match_parent"
-        android:layout_height="190dp"
-        android:layout_marginBottom="0dp"
-        android:onClick="downClick"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/graveler1"
