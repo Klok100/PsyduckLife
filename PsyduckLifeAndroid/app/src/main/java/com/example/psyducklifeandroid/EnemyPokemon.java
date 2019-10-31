@@ -1,20 +1,20 @@
 package com.example.psyducklifeandroid;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class EnemyPokemon {
 
-    public String name;
-    public String type;
-    public int hp;
-    public int atk;
-    public int def;
-    public int spatk;
-    public int spdef;
-    public int spd;
+    private String name;
+    private String type;
+    private double hp;
+    private int atk;
+    private int def;
+    private int spatk;
+    private int spdef;
+    private ArrayList<Moves> enemyMoves;
 
-    public EnemyPokemon(String name, String type, int hp, int atk, int def, int spatk, int spdef, int spd){
+
+    public EnemyPokemon(String name, String type, double hp, int atk, int def, int spatk, int spdef, ArrayList<Moves> enemyMoves){
         this.name = name;
         this.type = type;
         this.hp = hp;
@@ -22,8 +22,7 @@ public class EnemyPokemon {
         this.def = def;
         this.spatk = spatk;
         this.spdef = spdef;
-        this.spd = spd;
-
+        this.enemyMoves = enemyMoves;
     }
 
     public String getName() {
@@ -34,11 +33,11 @@ public class EnemyPokemon {
         this.name = name;
     }
 
-    public int getHp() {
+    public double getHp() {
         return hp;
     }
 
-    public void setHp(int hp) {
+    public void setHp(double hp) {
         this.hp = hp;
     }
 
@@ -74,12 +73,20 @@ public class EnemyPokemon {
         this.spdef = spdef;
     }
 
-    public int getSpd() {
-        return spd;
+    public String getType() {
+        return type;
     }
 
-    public void setSpd(int spd) {
-        this.spd = spd;
+    public void setType(String type) {
+        this.type = type;
     }
 
+    public ArrayList<Moves> getEnemyMoves() {
+        return enemyMoves;
+    }
+
+    public void setEnemyMoves(ArrayList<Moves> enemyMoves) {
+        this.enemyMoves = enemyMoves;
+    }
 }
+

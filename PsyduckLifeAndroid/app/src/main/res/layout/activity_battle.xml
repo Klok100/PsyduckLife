@@ -12,17 +12,18 @@
         android:layout_height="459dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.711"
+        app:layout_constraintVertical_bias="0.708"
         app:srcCompat="@drawable/pokemonbattlebackground" />
 
     <ImageView
         android:id="@+id/psyduckImage"
         android:layout_width="119dp"
         android:layout_height="120dp"
-        android:layout_marginStart="124dp"
-        android:layout_marginTop="272dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="256dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/psyduck" />
@@ -31,19 +32,21 @@
         android:id="@+id/psyduckHP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="244dp"
-        android:text="HP: 100"
-        android:textColor="#000000"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="232dp"
+        android:text="HP: "
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/enemyPokemon"
+        android:id="@+id/onixImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="124dp"
-        android:layout_marginEnd="116dp"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="120dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/onix" />
@@ -52,8 +55,9 @@
         android:id="@+id/normalType"
         android:layout_width="66dp"
         android:layout_height="24dp"
-        android:layout_marginStart="448dp"
-        android:layout_marginTop="312dp"
+        android:layout_marginStart="380dp"
+        android:layout_marginTop="280dp"
+        android:onClick="scratch"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/normal" />
@@ -62,10 +66,12 @@
         android:id="@+id/scratchButton"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
-        android:layout_marginTop="312dp"
+        android:layout_marginTop="280dp"
+        android:onClick="scratch"
         android:text="Scratch"
         android:textAlignment="center"
         android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/normalType"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,8 +79,9 @@
         android:id="@+id/waterType"
         android:layout_width="66dp"
         android:layout_height="24dp"
-        android:layout_marginStart="576dp"
-        android:layout_marginTop="312dp"
+        android:layout_marginStart="516dp"
+        android:layout_marginTop="280dp"
+        android:onClick="waterpulse"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/water" />
@@ -83,9 +90,140 @@
         android:id="@+id/waterpulseMove"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
-        android:layout_marginTop="312dp"
+        android:layout_marginTop="280dp"
+        android:onClick="waterpulse"
         android:text="Water Pulse"
         android:textColor="#0037FF"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/waterType"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/enemyPokemonHP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="120dp"
+        android:text="HP: "
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/psychicType"
+        android:layout_width="66dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="380dp"
+        android:layout_marginTop="28dp"
+        android:onClick="psychic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/normalType"
+        app:srcCompat="@drawable/psychic" />
+
+    <TextView
+        android:id="@+id/psychicMove"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginTop="28dp"
+        android:onClick="psychic"
+        android:text="Psychic"
+        android:textColor="#FF00BF"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/psychicType"
+        app:layout_constraintTop_toBottomOf="@+id/scratchButton" />
+
+    <ImageView
+        android:id="@+id/iceType"
+        android:layout_width="66dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="516dp"
+        android:layout_marginTop="28dp"
+        android:onClick="icebeam"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/waterType"
+        app:srcCompat="@drawable/ice" />
+
+    <TextView
+        android:id="@+id/icebeamMove"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginTop="28dp"
+        android:onClick="icebeam"
+        android:text="Ice Beam"
+        android:textColor="#00F7FF"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/iceType"
+        app:layout_constraintTop_toBottomOf="@+id/waterpulseMove" />
+
+    <TextView
+        android:id="@+id/psyduckAtkMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="60dp"
+        android:text="          "
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/enemyAtkMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="          "
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/psyduckAtkMsg" />
+
+    <ImageView
+        android:id="@+id/starmieImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="56dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/starmie" />
+
+    <ImageView
+        android:id="@+id/raichuImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="112dp"
+        android:layout_marginEnd="108dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/raichu" />
+
+    <ImageView
+        android:id="@+id/vileplumeImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="136dp"
+        android:layout_marginEnd="116dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/vileplume" />
+
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="69dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="256dp"
+        android:onClick="goBack"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/backbutton" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+

@@ -47,51 +47,75 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/upButton"
-        android:layout_width="81dp"
-        android:layout_height="59dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="16dp"
+    <ImageView
+        android:id="@+id/upButtonRunning"
+        android:layout_width="699dp"
+        android:layout_height="451dp"
         android:onClick="upClick"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/runningBackground2"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/up" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/downArrow"
-        android:layout_width="75dp"
-        android:layout_height="55dp"
+
+    <ImageView
+        android:id="@+id/graveler1Running"
+        android:layout_width="730dp"
+        android:layout_height="61dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.751"
+        app:srcCompat="@drawable/graveler" />
+
+    <ImageView
+        android:id="@+id/graveler2Running"
+        android:layout_width="730dp"
+        android:layout_height="61dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.751"
+        app:srcCompat="@drawable/graveler" />
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginBottom="20dp"
-        android:onClick="downClick"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/upButton"
-        app:srcCompat="@drawable/down" />
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/graveler1"
-        android:layout_width="730dp"
-        android:layout_height="61dp"
+    <TextView
+        android:id="@+id/instructionsRunningStart"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:background="@drawable/directionsboxwater"
+        android:text="@string/DirectionsRunning"
+        android:textAlignment="center"
+        android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.751"
-        app:srcCompat="@drawable/graveler" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/graveler2"
-        android:layout_width="730dp"
-        android:layout_height="61dp"
+    <TextView
+        android:id="@+id/instructionsRunningEnd"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:background="@drawable/directionsboxwater"
+        android:text="@string/DirectionsRunning"
+        android:textAlignment="center"
+        android:textStyle="bold|italic"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.751"
-        app:srcCompat="@drawable/graveler" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

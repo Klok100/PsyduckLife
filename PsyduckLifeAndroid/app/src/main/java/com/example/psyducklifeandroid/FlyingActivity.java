@@ -4,27 +4,63 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ValueAnimator;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class FlyingActivity extends AppCompatActivity {
 
-    int x = 1;
-    int seconds = 0;
-    boolean running = true;
-    boolean wasRunning = true;
-    int timeTotal = 0;
     int level = 2;
+    TextView instructions;
+    Handler timerHandler = new Handler();
+    TextView timerTextView;
+    long startTime = 0;
+
+
+    private View.OnClickListener instructionsOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            instructions = findViewById(R.id.instructionsFlying);
+            instructions.setVisibility(View.GONE);
+
+            startGame();
+        }
+    };
+
+
+    Runnable timerRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+            long millis = System.currentTimeMillis() - startTime;
+            int seconds = (int) (millis / 1000);
+
+            timerTextView.setText(String.format("%02d", seconds));
+
+            timerHandler.postDelayed(this, 500);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flying);
 
-        final ImageView backgroundOne = findViewById(R.id.swimmingBackground1);
-        final ImageView backgroundTwo = findViewById(R.id.swimmingBackground2);
+        instructions = findViewById(R.id.instructionsFlying);
+
+        instructions.setOnClickListener(instructionsOnClickListener);
+
+    }
+
+    public void startGame() {
+
+        final ImageView backgroundOne = findViewById(R.id.flyingBackground1);
+        final ImageView backgroundTwo = findViewById(R.id.flyingBackground2);
+        final ImageView obstacleOne = findViewById(R.id.graveler1Flying);
+        final ImageView obstacleTwo = findViewById(R.id.graveler2Flying);
 
         final ValueAnimator animator = ValueAnimator.ofFloat(1.0f, 0.0f);
         animator.setRepeatCount(ValueAnimator.INFINITE);
@@ -38,44 +74,27 @@ public class FlyingActivity extends AppCompatActivity {
                 final float translationX = width * progress;
                 backgroundOne.setTranslationX(translationX);
                 backgroundTwo.setTranslationX(translationX - width);
-                if (timeTotal == 5) {
-                    x += 1;
-                    animator.setDuration(5000L + x);
-                    timeTotal = 0;
-                }
+
+                final float widthGraveler = obstacleOne.getWidth();
+                final float translationXGraveler = widthGraveler * progress;
+                obstacleOne.setTranslationX(translationXGraveler);
+                obstacleTwo.setTranslationX(translationXGraveler - widthGraveler);
             }
         });
         animator.start();
 
-        if (savedInstanceState != null) {
-            seconds = savedInstanceState.getInt("seconds");
-            running = savedInstanceState.getBoolean("running");
-            wasRunning = savedInstanceState.getBoolean("wasRunning");
-        }
-        runTimer();
+        timerTextView = findViewById(R.id.timer);
 
+        startTime = System.currentTimeMillis();
+        timerHandler.postDelayed(timerRunnable, 0);
     }
 
-    private void runTimer() {
-        final Handler handler = new Handler();
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (running) {
-                    seconds++;
-                }
-                timeTotal = seconds;
-                handler.postDelayed(this, 1000);
-            }
-        });
-    }
 
     public void upClick(View v) {
-        ImageView one = findViewById(R.id.imageView1);
+        ImageView one = findViewById(R.id.level1);
         ImageView two = findViewById(R.id.psyduckImage);
-        ImageView three = findViewById(R.id.imageView3);
-        ImageView four = findViewById(R.id.imageView4);
-
+        ImageView three = findViewById(R.id.level3);
+        ImageView four = findViewById(R.id.level4);
 
         if (level == 1) {
 
@@ -86,7 +105,8 @@ public class FlyingActivity extends AppCompatActivity {
             one.setImageResource(R.drawable.psyducksprite);
             level = 1;
 
-        } else if (level == 2) {
+        }
+        else if (level == 2) {
 
             one.setVisibility(View.VISIBLE);
             two.setVisibility(View.INVISIBLE);
@@ -95,7 +115,8 @@ public class FlyingActivity extends AppCompatActivity {
             one.setImageResource(R.drawable.psyducksprite);
             level = 1;
 
-        } else if (level == 3) {
+        }
+        else if (level == 3) {
 
             one.setVisibility(View.INVISIBLE);
             two.setVisibility(View.VISIBLE);
@@ -104,7 +125,8 @@ public class FlyingActivity extends AppCompatActivity {
             two.setImageResource(R.drawable.psyducksprite);
             level = 2;
 
-        } else if (level == 4) {
+        }
+        else if (level == 4) {
 
             one.setVisibility(View.INVISIBLE);
             two.setVisibility(View.INVISIBLE);
@@ -112,16 +134,14 @@ public class FlyingActivity extends AppCompatActivity {
             four.setVisibility(View.INVISIBLE);
             three.setImageResource(R.drawable.psyducksprite);
             level = 3;
-
         }
-
     }
 
     public void downClick(View v) {
-        ImageView one = findViewById(R.id.imageView1);
+        ImageView one = findViewById(R.id.level1);
         ImageView two = findViewById(R.id.psyduckImage);
-        ImageView three = findViewById(R.id.imageView3);
-        ImageView four = findViewById(R.id.imageView4);
+        ImageView three = findViewById(R.id.level3);
+        ImageView four = findViewById(R.id.level4);
 
         if (level == 1) {
 
@@ -132,7 +152,8 @@ public class FlyingActivity extends AppCompatActivity {
             two.setImageResource(R.drawable.psyducksprite);
             level = 2;
 
-        } else if (level == 2) {
+        }
+        else if (level == 2) {
 
             one.setVisibility(View.INVISIBLE);
             two.setVisibility(View.INVISIBLE);
@@ -141,7 +162,8 @@ public class FlyingActivity extends AppCompatActivity {
             three.setImageResource(R.drawable.psyducksprite);
             level = 3;
 
-        } else if (level == 3) {
+        }
+        else if (level == 3) {
 
             one.setVisibility(View.INVISIBLE);
             two.setVisibility(View.INVISIBLE);
@@ -150,7 +172,7 @@ public class FlyingActivity extends AppCompatActivity {
             four.setImageResource(R.drawable.psyducksprite);
             level = 4;
 
-        } else if (level == 4) {
+        }else if (level == 4) {
 
             one.setVisibility(View.INVISIBLE);
             two.setVisibility(View.INVISIBLE);
@@ -160,11 +182,5 @@ public class FlyingActivity extends AppCompatActivity {
             level = 4;
 
         }
-
     }
-
-    public void onClickStart(View view) {
-        running = true;
-    }
-
 }

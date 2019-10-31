@@ -7,6 +7,16 @@
     tools:context=".SwimmingActivity">
 
     <ImageView
+        android:layout_width="1414dp"
+        android:layout_height="717dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.297"
+        app:srcCompat="@drawable/waterscrollingbackground" />
+
+    <ImageView
         android:id="@+id/swimmingBackground1"
         android:layout_width="1414dp"
         android:layout_height="717dp"
@@ -57,25 +67,24 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageButton"
+        android:id="@+id/upButtonSwimming"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:layout_marginStart="0dp"
+        android:layout_height="200dp"
         android:onClick="upClick"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageButton2"
+        android:id="@+id/downButton"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="200dp"
         android:layout_marginBottom="0dp"
         android:onClick="downClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/graveler"
+        android:id="@+id/graveler1Swimming"
         android:layout_width="92dp"
         android:layout_height="57dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -85,6 +94,40 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.457"
         app:srcCompat="@drawable/graveler" />
+
+    <ImageView
+        android:id="@+id/graveler2Swimming"
+        android:layout_width="92dp"
+        android:layout_height="57dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.774"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.457"
+        app:srcCompat="@drawable/graveler" />
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="68dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/instructionsSwimming"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:background="@drawable/directionsboxwater"
+        android:text="@string/DirectionsFlying"
+        android:textAlignment="center"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<color name="colorPrimary">#00BCD4</color>
+<color name="colorScreenMain">#00BCD4</color>
+<color name="colorScreenFill">#19D144</color>
+<color name="colorNoun">#21B1FF</color>
+<color name="colorAdj">#E921FF</color>
+<color name="colorVerb">#19D144</color>
+<color name="colorEmotion">#FF3021</color>
+<color name="colorName">#FFC821</color>
+<color name="colorClass">#9F21FF</color>
+<color name="colorPrimaryDark">#00574B</color>
+<color name="colorAccent">#D81B60</color>
+<color name="colorFinal">#1C0CC9</color>
+</resources>
+
+
+

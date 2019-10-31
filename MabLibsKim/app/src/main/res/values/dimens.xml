@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<dimen name = "constraintRight">8dp</dimen>
+<dimen name = "constraintTop">12dp</dimen>
+<dimen name = "constraintLeft">44dp</dimen>
+<dimen name = "editHeight">35dp</dimen>
+<dimen name = "textSize">12sp</dimen>
+</resources>
+
