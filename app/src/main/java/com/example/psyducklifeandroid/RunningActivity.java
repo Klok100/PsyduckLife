@@ -14,26 +14,11 @@ public class RunningActivity extends AppCompatActivity {
     public static final long START_TIME_IN_MILLIS = 1500;
     private CountDownTimer myTimer;
     private boolean mTimer;
+    private CountDownTimer mcollisionTimer;
     private long myTimeLeft = START_TIME_IN_MILLIS;
+    private long myColTimeLeft = 5000;
     private ImageView up;
 
-
-    int seconds = 0;
-    boolean running = false;
-    boolean wasRunning = false;
-
-    private void runTimer(){
-        final TextView timeView = (TextView) findViewById(R.id.textView);
-        final Handler handler = new Handler();
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (running && seconds < 3){
-                    seconds++;
-                }
-            }
-        });
-    }
 
     TextView timerTextView;
     long startTime = 0;
@@ -105,18 +90,21 @@ public class RunningActivity extends AppCompatActivity {
 
     }
 
+    ImageView high = findViewById(R.id.airPsyduck);
+    ImageView low = findViewById(R.id.groundPsyduck);
+
     private void startTimer() {
-         myTimer =  new  CountDownTimer(myTimeLeft, 1500) {
+        myTimer =  new  CountDownTimer(myTimeLeft, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 myTimeLeft = millisUntilFinished;
 
             }
 
-             //@Override
+            //@Override
             public void onFinish() {
                 mTimer = false;
-                    downClick();
+                downClick();
             }
         }.start();
 
@@ -124,13 +112,33 @@ public class RunningActivity extends AppCompatActivity {
 
     }
 
+    private void collisionTimer() {
+        mcollisionTimer =  new  CountDownTimer(myColTimeLeft, 5000) {
+            @Override
+            public void onTick(long colmillisUntilFinished) {
+                myColTimeLeft = colmillisUntilFinished;
+
+            }
+
+            //@Override
+            public void onFinish() {
+                mTimer = false;
+                downClick();
+            }
+        }.start();
+
+        mTimer = true;
+
+    }
+
+
+
     private void resetTimer() {
         myTimeLeft = START_TIME_IN_MILLIS;
     }
 
     public void upClick(View v){
-        ImageView high = findViewById(R.id.airPsyduck);
-        ImageView low = findViewById(R.id.groundPsyduck);
+
 
         high.setVisibility(View.VISIBLE);
         high.setImageResource(R.drawable.psyducksprite);
@@ -140,8 +148,6 @@ public class RunningActivity extends AppCompatActivity {
     }
 
     public void downClick(){
-        ImageView high = findViewById(R.id.airPsyduck);
-        ImageView low = findViewById(R.id.groundPsyduck);
 
         low.setVisibility(View.VISIBLE);
         low.setImageResource(R.drawable.psyducksprite);
