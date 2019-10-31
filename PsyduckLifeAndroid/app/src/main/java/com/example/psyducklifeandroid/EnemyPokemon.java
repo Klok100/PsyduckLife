@@ -33,6 +33,14 @@ public class EnemyPokemon {
         this.name = name;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public double getHp() {
         return hp;
     }
@@ -71,14 +79,6 @@ public class EnemyPokemon {
 
     public void setSpdef(int spdef) {
         this.spdef = spdef;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public ArrayList<Moves> getEnemyMoves() {
