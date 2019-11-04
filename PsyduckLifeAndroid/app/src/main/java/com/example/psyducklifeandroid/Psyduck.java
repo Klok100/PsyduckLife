@@ -16,7 +16,7 @@ public class Psyduck {
     public Psyduck(){
         this.name = "Psyduck";
         this.type = "Water";
-        this.hp = 50;
+        this.hp = 5000;
         this.atk = 32;
         this.def = 48;
         this.spatk = 65;
@@ -119,7 +119,7 @@ public class Psyduck {
 
     public void resetStats(){
         this.name = "Psyduck";
-        this.hp = 50;
+        this.hp = 5000;
         this.atk = 32;
         this.def = 48;
         this.spatk = 65;
