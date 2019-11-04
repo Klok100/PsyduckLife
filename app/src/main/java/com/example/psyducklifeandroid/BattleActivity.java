@@ -115,7 +115,7 @@ public class BattleActivity extends AppCompatActivity {
         vileplumeMoves.add(new Moves("Dazzling Gleam", "Fairy", 80, 100));
         vileplumeMoves.add(new Moves("Solar Beam", "Grass", 120, 100));
 
-        enemyPokemon.add(new EnemyPokemon("Onix", "Rock", 35, 45, 160, 30, 45, onixMoves));
+        enemyPokemon.add(new EnemyPokemon("Onix", "Rock", 5000, 45, 160, 30, 45, onixMoves));
         enemyPokemon.add(new EnemyPokemon("Starmie", "Water", 60, 75, 85, 100, 85, starmieMoves));
         enemyPokemon.add(new EnemyPokemon("Raichu", "Electric", 60, 90, 55, 90, 80, raichuMoves));
         enemyPokemon.add(new EnemyPokemon("Vileplume", "Grass", 75, 80, 85, 100, 90, vileplumeMoves));
@@ -146,24 +146,86 @@ public class BattleActivity extends AppCompatActivity {
         }
     }
 
+    public double checkAtkPsyduck(Moves move, EnemyPokemon enemy){
+        String atkType = move.getType();
+        String enemyType = enemy.getType();
 
-    public void psyduckAtk(EnemyPokemon enemy, TextView enemyPokemonHP, Moves move, TextView psyduckMsg, double enemyPokemonOrigHP){
+        if ((atkType.equals("Ice") && (enemyType.equals("Ground") || (enemyType.equals("Flying") || (enemyType.equals("Grass")) || (enemyType.equals("Dragon")))))
+                || (atkType.equals("Water") && (enemyType.equals("Fire") || enemyType.equals("Ground") || enemyType.equals("Rock")))
+                || (atkType.equals("Psychic") && (enemyType.equals("Fighting") || enemyType.equals("Poison")))){
+            return 2;
+        }
+        else if ((atkType.equals("Normal") && (enemyType.equals("Rock") || enemyType.equals("Steel")))
+                || (atkType.equals("Ice") && (enemyType.equals("Fire") || enemyType.equals("Water") || enemyType.equals("Ice") || enemyType.equals("Steel")))
+                || (atkType.equals("Water") && (enemyType.equals("Water") || enemyType.equals("Grass") || enemyType.equals("Dragon")))
+                || (atkType.equals("Psychic") && (enemyType.equals("Psychic") || enemyType.equals("Steel")))){
+            return 0.5;
+        }
+
+        else if ((atkType.equals("Normal") && (enemyType.equals("Ghost")))
+                || (atkType.equals("Psychic") && (enemyType.equals("Dark")))){
+            return 0;
+        }
+
+        else{
+            return 1;
+        }
+    }
+
+
+    public double checkAtkEnemy(Moves move){
+        String atkType = move.getType();
+        String psyduckType = psyduck.getType();
+
+        if ((psyduckType.equals("Water") && (atkType.equals("Grass") || atkType.equals("Electric")))){
+            return 2;
+        }
+
+        else if ((psyduckType.equals("Water") && (atkType.equals("Fire") || atkType.equals("Water") || atkType.equals("Ice") || atkType.equals("Steel")))){
+            return 0.5;
+        }
+
+        else{
+            return 1;
+        }
+    }
+
+
+    public void psyduckAtk(EnemyPokemon enemy, TextView enemyPokemonHP, Moves move, TextView psyduckMsg, TextView enemyMsg, double enemyPokemonOrigHP){
         ImageView backButton = (ImageView) findViewById(R.id.backButton);
 
         if (checkAccuracy(move)){
+            double multiplier = checkAtkPsyduck(move, enemy);
             double psyduckBaseDmg = move.getAtkpow();
             double psyduckBaseAtk = psyduck.getAtk();
             double psyduckDmg = psyduckBaseDmg * psyduckBaseAtk;
             double enemyDef = enemy.getDef();
-            double psyduckTotalDmg = Math.round(psyduckDmg / 100 * (psyduckBaseAtk / enemyDef));
+            double psyduckTotalDmg = Math.round((psyduckDmg / 100 * (psyduckBaseAtk / enemyDef)) * multiplier);
             enemy.setHp(Math.round(enemy.getHp() - psyduckTotalDmg));
             enemyPokemonHP.setText("HP: " + String.valueOf(enemyPokemon.get(setEnemy()).getHp()));
-            psyduckMsg.setText("Psyduck used " + move.getName() + " and dealt " + psyduckTotalDmg + " damage to " + enemy.getName() + "!");
+            if (multiplier == 2){
+                psyduckMsg.setText("Psyduck used " + move.getName() + " and dealt " + psyduckTotalDmg + " damage to " + enemy.getName() + "! \nIt was super effective!");
+            }
+
+            else if (multiplier == 1){
+                psyduckMsg.setText("Psyduck used " + move.getName() + " and dealt " + psyduckTotalDmg + " damage to " + enemy.getName() + "!");
+            }
+
+            else if (multiplier == 0.5){
+                psyduckMsg.setText("Psyduck used " + move.getName() + " and dealt " + psyduckTotalDmg + " damage to " + enemy.getName() + "... \nIt was not very effective.");
+            }
+
+            else {
+                psyduckMsg.setText("Psyduck used " + move.getName() + " on " + enemy.getName() + "... \nIt had no effect.");
+            }
+
             if(enemyPokemon.get(setEnemy()).getHp() <= 0){
                 enemyPokemon.get(setEnemy()).setHp(0);
                 enemyPokemonHP.setText("HP: " + String.valueOf(enemyPokemon.get(setEnemy()).getHp()));
                 enemyPokemon.get(setEnemy()).setHp(enemyPokemonOrigHP);
                 isRunning = false;
+                psyduckMsg.setText(enemy.getName() + " fainted. You won the battle!");
+                enemyMsg.setText("");
                 backButton.setVisibility(View.VISIBLE);
             }
         }
@@ -173,23 +235,43 @@ public class BattleActivity extends AppCompatActivity {
         }
     }
 
-    public void enemyAtk(EnemyPokemon enemy, TextView psyduckHP, Moves enemyMove, TextView enemyMsg, double psyduckOrigHP){
+    public void enemyAtk(EnemyPokemon enemy, TextView psyduckHP, Moves enemyMove, TextView psyduckMsg, TextView enemyMsg, double psyduckOrigHP){
         ImageView backButton = (ImageView) findViewById(R.id.backButton);
-        
-        double enemyBaseDmg = enemyMove.getAtkpow();
-        double enemyBaseAtk = enemy.getAtk();
-        double enemyDmg = enemyBaseDmg * enemyBaseAtk;
-        double psyduckDef = psyduck.getDef();
-        double enemyTotalDmg = Math.round(enemyDmg / 100 * (enemyBaseAtk / psyduckDef));
-        psyduck.setHp(Math.round(psyduck.getHp() - enemyTotalDmg));
-        psyduckHP.setText("HP: " + String.valueOf(psyduck.getHp()));
-        enemyMsg.setText(enemy.getName() + " used " + enemyMove.getName() + " and dealt " + enemyTotalDmg + " to Psyduck!");
-        if(psyduck.getHp() <= 0){
-            psyduck.setHp(0);
+
+        if (checkAccuracy(enemyMove)){
+            double multiplier = checkAtkEnemy(enemyMove);
+            double enemyBaseDmg = enemyMove.getAtkpow();
+            double enemyBaseAtk = enemy.getAtk();
+            double enemyDmg = enemyBaseDmg * enemyBaseAtk;
+            double psyduckDef = psyduck.getDef();
+            double enemyTotalDmg = Math.round((enemyDmg / 100 * (enemyBaseAtk / psyduckDef)) * multiplier);
+            psyduck.setHp(Math.round(psyduck.getHp() - enemyTotalDmg));
             psyduckHP.setText("HP: " + String.valueOf(psyduck.getHp()));
-            psyduck.setHp(psyduckOrigHP);
-            isRunning = false;
-            backButton.setVisibility(View.VISIBLE);
+            if (multiplier == 2){
+                enemyMsg.setText(enemy.getName() + " used " + enemyMove.getName() + " and dealt " + enemyTotalDmg + " to Psyduck! \nIt was super effective!");
+            }
+
+            else if (multiplier == 1){
+                enemyMsg.setText(enemy.getName() + " used " + enemyMove.getName() + " and dealt " + enemyTotalDmg + " to Psyduck!");
+            }
+
+            else if (multiplier == 0.5){
+                enemyMsg.setText(enemy.getName() + " used " + enemyMove.getName() + " and dealt " + enemyTotalDmg + " to Psyduck... \nIt was not very effective.");
+            }
+
+            if (psyduck.getHp() <= 0) {
+                psyduck.setHp(0);
+                psyduckHP.setText("HP: " + String.valueOf(psyduck.getHp()));
+                psyduck.setHp(psyduckOrigHP);
+                isRunning = false;
+                psyduckMsg.setText("Psyduck fainted... You lost the battle!");
+                enemyMsg.setText("");
+                backButton.setVisibility(View.VISIBLE);
+            }
+        }
+
+        else{
+            enemyMsg.setText(enemy.getName() + " used " + enemyMove.getName() + ", but the attack missed!");
         }
     }
 
@@ -203,10 +285,10 @@ public class BattleActivity extends AppCompatActivity {
             EnemyPokemon enemy = enemyPokemon.get(setEnemy());
 
             Moves scratch = psyduckMoves.get(0);
-            psyduckAtk(enemy, enemyPokemonHP, scratch, psyduckMsg, enemyPokemonOrigHP);
+            psyduckAtk(enemy, enemyPokemonHP, scratch, psyduckMsg, enemyMsg, enemyPokemonOrigHP);
 
-            Moves enemyMove = enemy.getEnemyMoves().get(random(1, 4));
-            enemyAtk(enemy, psyduckHP, enemyMove, enemyMsg, psyduckOrigHP);
+            Moves enemyMove = enemy.getEnemyMoves().get(random(0, 3));
+            enemyAtk(enemy, psyduckHP, enemyMove, psyduckMsg, enemyMsg, psyduckOrigHP);
         }
     }
 
@@ -220,10 +302,10 @@ public class BattleActivity extends AppCompatActivity {
             EnemyPokemon enemy = enemyPokemon.get(setEnemy());
 
             Moves waterpulse = psyduckMoves.get(1);
-            psyduckAtk(enemy, enemyPokemonHP, waterpulse, psyduckMsg, enemyPokemonOrigHP);
+            psyduckAtk(enemy, enemyPokemonHP, waterpulse, psyduckMsg, enemyMsg, enemyPokemonOrigHP);
 
-            Moves enemyMove = enemy.getEnemyMoves().get(random(1, 4));
-            enemyAtk(enemy, psyduckHP, enemyMove, enemyMsg, psyduckOrigHP);
+            Moves enemyMove = enemy.getEnemyMoves().get(random(0, 3));
+            enemyAtk(enemy, psyduckHP, enemyMove, psyduckMsg, enemyMsg, psyduckOrigHP);
         }
     }
 
@@ -238,10 +320,10 @@ public class BattleActivity extends AppCompatActivity {
 
 
             Moves psychic = psyduckMoves.get(2);
-            psyduckAtk(enemy, enemyPokemonHP, psychic, psyduckMsg, enemyPokemonOrigHP);
+            psyduckAtk(enemy, enemyPokemonHP, psychic, psyduckMsg, enemyMsg, enemyPokemonOrigHP);
 
-            Moves enemyMove = enemy.getEnemyMoves().get(random(1, 4));
-            enemyAtk(enemy, psyduckHP, enemyMove, enemyMsg, psyduckOrigHP);
+            Moves enemyMove = enemy.getEnemyMoves().get(random(0, 3));
+            enemyAtk(enemy, psyduckHP, enemyMove, psyduckMsg, enemyMsg, psyduckOrigHP);
         }
     }
 
@@ -255,10 +337,10 @@ public class BattleActivity extends AppCompatActivity {
             EnemyPokemon enemy = enemyPokemon.get(setEnemy());
 
             Moves icebeam = psyduckMoves.get(3);
-            psyduckAtk(enemy, enemyPokemonHP, icebeam, psyduckMsg, enemyPokemonOrigHP);
+            psyduckAtk(enemy, enemyPokemonHP, icebeam, psyduckMsg, enemyMsg, enemyPokemonOrigHP);
 
-            Moves enemyMove = enemy.getEnemyMoves().get(random(1, 4));
-            enemyAtk(enemy, psyduckHP, enemyMove, enemyMsg, psyduckOrigHP);
+            Moves enemyMove = enemy.getEnemyMoves().get(random(0, 3));
+            enemyAtk(enemy, psyduckHP, enemyMove, psyduckMsg, enemyMsg, psyduckOrigHP);
         }
     }
 
