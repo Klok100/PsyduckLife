@@ -10,18 +10,35 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.CountDownTimer;
+
+import static android.view.View.VISIBLE;
+
 public class RunningActivity extends AppCompatActivity {
-    public static final long START_TIME_IN_MILLIS = 1500;
+    public static final long START_TIME_IN_MILLIS = 1000;
+    public static final long COL_TIME_IN_MILLIS = 1000;
     private CountDownTimer myTimer;
     private boolean mTimer;
-    private CountDownTimer mcollisionTimer;
+    private CountDownTimer colTimer;
+    private boolean cTimer;
     private long myTimeLeft = START_TIME_IN_MILLIS;
-    private long myColTimeLeft = 5000;
+    private long colTimeLeft = COL_TIME_IN_MILLIS;
     private ImageView up;
-
-
-    TextView timerTextView;
+    private TextView timerTextView;
     long startTime = 0;
+    private TextView instructionsStart;
+    private TextView instructionsEnd;
+
+
+    private View.OnClickListener instructionsOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            instructionsStart = findViewById(R.id.instructionsRunningStart);
+            instructionsStart.setVisibility(View.GONE);
+
+            startGame();
+        }
+    };
+
 
     Handler timerHandler = new Handler();
     Runnable timerRunnable = new Runnable() {
@@ -29,7 +46,7 @@ public class RunningActivity extends AppCompatActivity {
         @Override
         public void run() {
             long millis = System.currentTimeMillis() - startTime;
-            int seconds = (int) (millis / 500);
+            int seconds = (int) (millis / 1000);
 
             timerTextView.setText(String.format("%02d", seconds));
 
@@ -43,10 +60,22 @@ public class RunningActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_running);
 
+        instructionsStart = findViewById(R.id.instructionsRunningStart);
+
+        instructionsStart.setOnClickListener(instructionsOnClickListener);
+
+        instructionsEnd = findViewById(R.id.instructionsRunningEnd);
+
+        instructionsEnd.setOnClickListener(instructionsOnClickListener);
+    }
+
+
+    public void startGame(){
+
         final ImageView backgroundOne = findViewById(R.id.runningBackground1);
         final ImageView backgroundTwo = findViewById(R.id.runningBackground2);
-        final ImageView obstacleOne = findViewById(R.id.graveler1);
-        final ImageView obstacleTwo = findViewById(R.id.graveler2);
+        final ImageView obstacleOne = findViewById(R.id.graveler1Running);
+        final ImageView obstacleTwo = findViewById(R.id.graveler2Running);
 
         final ValueAnimator animator = ValueAnimator.ofFloat(1.0f, 0.0f);
         animator.setRepeatCount(ValueAnimator.INFINITE);
@@ -56,6 +85,7 @@ public class RunningActivity extends AppCompatActivity {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 final float progress = (float) animation.getAnimatedValue();
+
                 final float width = backgroundOne.getWidth();
                 final float translationX = width * progress;
                 backgroundOne.setTranslationX(translationX);
@@ -69,12 +99,18 @@ public class RunningActivity extends AppCompatActivity {
         });
         animator.start();
 
-        timerTextView = (TextView) findViewById(R.id.textView);
+        timerTextView = (TextView) findViewById(R.id.timer);
 
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(timerRunnable, 0);
 
-        up = findViewById(R.id.imageButton);
+        up = findViewById(R.id.upButtonRunning);
+
+        colTimer();
+
+        //hello
+
+            //0.5 + 5x
 
         up.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,10 +124,9 @@ public class RunningActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
-    ImageView high = findViewById(R.id.airPsyduck);
-    ImageView low = findViewById(R.id.groundPsyduck);
 
     private void startTimer() {
         myTimer =  new  CountDownTimer(myTimeLeft, 1000) {
@@ -109,48 +144,72 @@ public class RunningActivity extends AppCompatActivity {
         }.start();
 
         mTimer = true;
-
     }
 
-    private void collisionTimer() {
-        mcollisionTimer =  new  CountDownTimer(myColTimeLeft, 5000) {
-            @Override
-            public void onTick(long colmillisUntilFinished) {
-                myColTimeLeft = colmillisUntilFinished;
+    private void colTimer(){
 
+        colTimer =  new  CountDownTimer(colTimeLeft, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                colTimeLeft = millisUntilFinished;
+                checkCol();
             }
 
             //@Override
             public void onFinish() {
-                mTimer = false;
-                downClick();
+                cTimer = false;
             }
         }.start();
 
-        mTimer = true;
-
+        cTimer = true;
     }
-
 
 
     private void resetTimer() {
         myTimeLeft = START_TIME_IN_MILLIS;
     }
 
+
     public void upClick(View v){
+        ImageView high = findViewById(R.id.airPsyduck);
+        ImageView low = findViewById(R.id.groundPsyduck);
 
-
-        high.setVisibility(View.VISIBLE);
+        high.setVisibility(VISIBLE);
         high.setImageResource(R.drawable.psyducksprite);
         low.setVisibility(View.INVISIBLE);
+
+        endGame();
+    }
+
+
+    public void downClick(){
+        ImageView high = findViewById(R.id.airPsyduck);
+        ImageView low = findViewById(R.id.groundPsyduck);
+
+        low.setVisibility(VISIBLE);
+        low.setImageResource(R.drawable.psyducksprite);
+        high.setVisibility(View.INVISIBLE);
+    }
+
+    public void checkCol(){
+        ImageView high = findViewById(R.id.airPsyduck);
+        ImageView low = findViewById(R.id.groundPsyduck);
+
+        if (low.getVisibility() == View.VISIBLE) {
+            endGame();
+        }
 
 
     }
 
-    public void downClick(){
+    public void endGame(){
 
-        low.setVisibility(View.VISIBLE);
-        low.setImageResource(R.drawable.psyducksprite);
-        high.setVisibility(View.INVISIBLE);
+        View.OnClickListener instructionsOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                instructionsEnd = findViewById(R.id.instructionsRunningEnd);
+                instructionsEnd.setVisibility(VISIBLE);
+            }
+        };
     }
 }
