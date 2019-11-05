@@ -11,11 +11,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.CountDownTimer;
 
+import java.util.Timer;
+
 import static android.view.View.VISIBLE;
 
 public class RunningActivity extends AppCompatActivity {
     public static final long START_TIME_IN_MILLIS = 1000;
-    public static final long COL_TIME_IN_MILLIS = 1000;
+    public static final long COL_TIME_IN_MILLIS = 3000;
     private CountDownTimer myTimer;
     private boolean mTimer;
     private CountDownTimer colTimer;
@@ -24,9 +26,10 @@ public class RunningActivity extends AppCompatActivity {
     private long colTimeLeft = COL_TIME_IN_MILLIS;
     private ImageView up;
     private TextView timerTextView;
-    long startTime = 0;
+    private long startTime = 0;
     private TextView instructionsStart;
     private TextView instructionsEnd;
+    private boolean isPlayable = true;
 
 
     private View.OnClickListener instructionsOnClickListener = new View.OnClickListener() {
@@ -36,6 +39,7 @@ public class RunningActivity extends AppCompatActivity {
             instructionsStart.setVisibility(View.GONE);
 
             startGame();
+            //colTimer();
         }
     };
 
@@ -106,24 +110,21 @@ public class RunningActivity extends AppCompatActivity {
 
         up = findViewById(R.id.upButtonRunning);
 
-        colTimer();
-
-        //hello
-
-            //0.5 + 5x
 
         up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 upClick(v);
-                if (mTimer) {
-                    resetTimer();
-                } else {
+                //if (mTimer) {
+                    //resetTimer();
+               // }
+              //  else {
                     startTimer();
-                }
+                    colTimer();
+                    resetTimer();
+                //}
             }
         });
-
 
     }
 
@@ -138,27 +139,29 @@ public class RunningActivity extends AppCompatActivity {
 
             //@Override
             public void onFinish() {
-                mTimer = false;
+                //mTimer = false;
                 downClick();
             }
         }.start();
 
-        mTimer = true;
+        //mTimer = true;
     }
 
     private void colTimer(){
-
+        final ImageView high = findViewById(R.id.airPsyduck);
         colTimer =  new  CountDownTimer(colTimeLeft, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 colTimeLeft = millisUntilFinished;
-                checkCol();
+                //checkCol();
             }
 
             //@Override
             public void onFinish() {
                 cTimer = false;
+                high.setVisibility(VISIBLE);
             }
+
         }.start();
 
         cTimer = true;
@@ -167,6 +170,7 @@ public class RunningActivity extends AppCompatActivity {
 
     private void resetTimer() {
         myTimeLeft = START_TIME_IN_MILLIS;
+        colTimeLeft = COL_TIME_IN_MILLIS;
     }
 
 
@@ -192,15 +196,20 @@ public class RunningActivity extends AppCompatActivity {
     }
 
     public void checkCol(){
-        ImageView high = findViewById(R.id.airPsyduck);
         ImageView low = findViewById(R.id.groundPsyduck);
 
         if (low.getVisibility() == View.VISIBLE) {
             endGame();
         }
-
-
     }
+
+
+    public void repeatColTimer(){
+        while(isPlayable){
+            colTimer();
+        }
+    }
+
 
     public void endGame(){
 
@@ -209,6 +218,8 @@ public class RunningActivity extends AppCompatActivity {
             public void onClick(View v) {
                 instructionsEnd = findViewById(R.id.instructionsRunningEnd);
                 instructionsEnd.setVisibility(VISIBLE);
+                ImageView high = findViewById(R.id.airPsyduck);
+                high.setVisibility(VISIBLE);
             }
         };
     }
