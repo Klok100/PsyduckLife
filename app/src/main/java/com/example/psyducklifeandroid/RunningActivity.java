@@ -10,6 +10,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.CountDownTimer;
+import android.widget.Toast;
 
 import java.util.Timer;
 
@@ -32,18 +33,6 @@ public class RunningActivity extends AppCompatActivity {
     private boolean isPlayable = true;
 
 
-    private View.OnClickListener instructionsOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            instructionsStart = findViewById(R.id.instructionsRunningStart);
-            instructionsStart.setVisibility(View.GONE);
-
-            startGame();
-            //colTimer();
-        }
-    };
-
-
     Handler timerHandler = new Handler();
     Runnable timerRunnable = new Runnable() {
 
@@ -63,6 +52,11 @@ public class RunningActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_running);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         instructionsStart = findViewById(R.id.instructionsRunningStart);
 
@@ -73,6 +67,21 @@ public class RunningActivity extends AppCompatActivity {
         instructionsEnd.setOnClickListener(instructionsOnClickListener);
     }
 
+    private View.OnClickListener instructionsOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            ImageView high = findViewById(R.id.airPsyduck);
+            high.setVisibility(View.VISIBLE);
+            instructionsStart.setVisibility(View.GONE);
+
+
+
+
+            //startGame();
+
+
+        }
+    };
 
     public void startGame(){
 
@@ -108,21 +117,17 @@ public class RunningActivity extends AppCompatActivity {
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(timerRunnable, 0);
 
-        up = findViewById(R.id.upButtonRunning);
 
+        up = findViewById(R.id.upButtonRunning);
 
         up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 upClick(v);
-                //if (mTimer) {
-                    //resetTimer();
-               // }
-              //  else {
-                    startTimer();
-                    colTimer();
-                    resetTimer();
-                //}
+                resetTimer();
+                startTimer();
+                colTimer();
+
             }
         });
 
@@ -137,34 +142,29 @@ public class RunningActivity extends AppCompatActivity {
 
             }
 
-            //@Override
+            @Override
             public void onFinish() {
-                //mTimer = false;
                 downClick();
             }
         }.start();
 
-        //mTimer = true;
     }
 
     private void colTimer(){
-        final ImageView high = findViewById(R.id.airPsyduck);
         colTimer =  new  CountDownTimer(colTimeLeft, 1000) {
             @Override
+            // GOOD
             public void onTick(long millisUntilFinished) {
                 colTimeLeft = millisUntilFinished;
-                //checkCol();
+                checkCol();
             }
 
-            //@Override
-            public void onFinish() {
-                cTimer = false;
-                high.setVisibility(VISIBLE);
+            @Override
+            public void onFinish(){
             }
 
         }.start();
 
-        cTimer = true;
     }
 
 
@@ -182,7 +182,6 @@ public class RunningActivity extends AppCompatActivity {
         high.setImageResource(R.drawable.psyducksprite);
         low.setVisibility(View.INVISIBLE);
 
-        endGame();
     }
 
 
@@ -195,31 +194,26 @@ public class RunningActivity extends AppCompatActivity {
         high.setVisibility(View.INVISIBLE);
     }
 
+    // GOOD
     public void checkCol(){
+        ImageView high = findViewById(R.id.airPsyduck);
         ImageView low = findViewById(R.id.groundPsyduck);
 
-        if (low.getVisibility() == View.VISIBLE) {
-            endGame();
-        }
-    }
-
-
-    public void repeatColTimer(){
-        while(isPlayable){
-            colTimer();
+        if (low.getVisibility() == VISIBLE) {
+            high.setVisibility(VISIBLE);
         }
     }
 
 
     public void endGame(){
 
+        instructionsEnd = findViewById(R.id.instructionsRunningEnd);
+        instructionsEnd.setVisibility(VISIBLE);
+
         View.OnClickListener instructionsOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                instructionsEnd = findViewById(R.id.instructionsRunningEnd);
-                instructionsEnd.setVisibility(VISIBLE);
-                ImageView high = findViewById(R.id.airPsyduck);
-                high.setVisibility(VISIBLE);
+
             }
         };
     }
