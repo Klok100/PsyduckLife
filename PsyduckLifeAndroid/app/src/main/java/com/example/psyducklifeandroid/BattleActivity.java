@@ -238,6 +238,7 @@ public class BattleActivity extends AppCompatActivity {
     public void enemyAtk(EnemyPokemon enemy, TextView psyduckHP, Moves enemyMove, TextView psyduckMsg, TextView enemyMsg, double psyduckOrigHP){
         ImageView backButton = (ImageView) findViewById(R.id.backButton);
 
+
         if (checkAccuracy(enemyMove)){
             double multiplier = checkAtkEnemy(enemyMove);
             double enemyBaseDmg = enemyMove.getAtkpow();
