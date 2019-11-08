@@ -15,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.297"
-        app:srcCompat="@drawable/flyingscrollingbackground" />
+        app:srcCompat="@drawable/flyingscrollingbackgroundwithzek" />
 
     <ImageView
         android:id="@+id/flyingBackground2"
@@ -26,7 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.297"
-        app:srcCompat="@drawable/flyingscrollingbackground" />
+        app:srcCompat="@drawable/flyingscrollingbackgroundwithzek" />
 
     <ImageView
         android:id="@+id/psyduckImage"
@@ -104,25 +104,5 @@
         app:layout_constraintStart_toStartOf="parent"
         android:textStyle="bold|italic"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/graveler1Flying"
-        android:layout_width="96dp"
-        android:layout_height="69dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="44dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/graveler" />
-
-    <ImageView
-        android:id="@+id/graveler2Flying"
-        android:layout_width="96dp"
-        android:layout_height="68dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="44dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/graveler" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
