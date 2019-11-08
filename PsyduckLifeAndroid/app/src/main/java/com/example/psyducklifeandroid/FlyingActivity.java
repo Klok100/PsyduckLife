@@ -3,6 +3,7 @@ package com.example.psyducklifeandroid;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -11,12 +12,15 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import static android.view.View.VISIBLE;
+
 public class FlyingActivity extends AppCompatActivity {
 
     int level = 2;
     TextView instructions;
     Handler timerHandler = new Handler();
     TextView timerTextView;
+    private TextView instructionsFlyingEnd;
     long startTime = 0;
 
 
@@ -176,6 +180,20 @@ public class FlyingActivity extends AppCompatActivity {
             level = 4;
 
         }
+    }
+
+    public void endGame(View v) {
+
+        instructionsFlyingEnd = findViewById(R.id.instructionsFlyingEnd);
+        instructionsFlyingEnd.setVisibility(VISIBLE);
+
+    }
+
+    public void returnScreen(View v){
+
+        Intent intent = new Intent(this, HomeScreen.class);
+
+        startActivity(intent);
     }
 }
 
