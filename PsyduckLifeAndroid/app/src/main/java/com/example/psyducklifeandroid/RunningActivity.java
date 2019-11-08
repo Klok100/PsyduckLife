@@ -19,19 +19,28 @@ import static android.view.View.VISIBLE;
 
 public class RunningActivity extends AppCompatActivity {
     public static final long START_TIME_IN_MILLIS = 1000;
-    public static final long COL_TIME_IN_MILLIS = 3000;
+    public static final long COL_TIME_IN_MILLIS = 3000000;
+    public static final long OBS_TIME_IN_MILLIS = 5000000;
     private CountDownTimer myTimer;
     private boolean mTimer;
     private CountDownTimer colTimer;
     private boolean cTimer;
+    private CountDownTimer obstacleTimer;
+    private boolean oTimer;
+    private CountDownTimer obstacleTimer2;
+    private boolean oTimer2;
     private long myTimeLeft = START_TIME_IN_MILLIS;
     private long colTimeLeft = COL_TIME_IN_MILLIS;
+    private long obsTimeLeft = OBS_TIME_IN_MILLIS;
+    private long obsTimeLeft2 = OBS_TIME_IN_MILLIS;
     private ImageView up;
     private TextView timerTextView;
     private long startTime = 0;
     private TextView instructionsStart;
     private TextView instructionsEnd;
-    private boolean isPlayable = true;
+    private int seconds;
+    private boolean onGraveler = false;
+
 
 
     Handler timerHandler = new Handler();
@@ -40,11 +49,17 @@ public class RunningActivity extends AppCompatActivity {
         @Override
         public void run() {
             long millis = System.currentTimeMillis() - startTime;
-            int seconds = (int) (millis / 1000);
+            seconds = (int) (millis / 1000);
 
             timerTextView.setText(String.format("%02d", seconds));
 
-            timerHandler.postDelayed(this, 500);
+            timerHandler.postDelayed(this, 1000);
+
+            colTimer();
+            obstacleTimer();
+            obstacleTimer2();
+
+
         }
     };
 
@@ -55,54 +70,30 @@ public class RunningActivity extends AppCompatActivity {
         setContentView(R.layout.activity_running);
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
 
         instructionsStart = findViewById(R.id.instructionsRunningStart);
 
-        //instructionsStart.setOnClickListener(instructionsOnClickListener);
+        instructionsStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        //instructionsStart.setOnClickListener(new View.OnClickListener() {
-        //    @Override
-        //    public void onClick(View v) {
+               startGame(v);
 
-         //       example();
-         //       startGame(v);
-         //       example();
-
-         //       instructionsStart.setVisibility(View.GONE);
-         //   }
-        //});
+               instructionsStart.setVisibility(View.GONE);
+           }
+        });
 
         instructionsEnd = findViewById(R.id.instructionsRunningEnd);
-
-        //instructionsEnd.setOnClickListener(new View.OnClickListener() {
-        //    @Override
-        //    public void onClick(View v) {
-
-        //        returnScreen(v);
-
-        //    }
-        //});
 
     }
 
 
-    private View.OnClickListener instructionsOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
+    public void startGame(View v){
 
-            example1();
-            startGame(v);
-            example1();
-
-            instructionsStart.setVisibility(View.GONE);
-        }
-    };
-
-
-    public void example1(){
         final ImageView backgroundOne = findViewById(R.id.runningBackground1);
         final ImageView backgroundTwo = findViewById(R.id.runningBackground2);
         final ImageView obstacleOne = findViewById(R.id.graveler1Running);
@@ -143,36 +134,9 @@ public class RunningActivity extends AppCompatActivity {
                 upClick(v);
                 resetTimer();
                 startTimer();
-                //colTimer();
 
             }
         });
-    }
-
-
-    public void example2(){
-        colTimer();
-        startTimer();
-    }
-
-
-    public void example3(){
-        ImageView high = findViewById(R.id.airPsyduck);
-        high.setVisibility(View.VISIBLE);
-    }
-
-
-    public void example4(){
-        instructionsStart.setVisibility(View.GONE);
-    }
-
-
-    public void startGame(View v){
-        example1();
-        //example2();
-        example3();
-        example4();
-
     }
 
 
@@ -192,8 +156,9 @@ public class RunningActivity extends AppCompatActivity {
 
     }
 
+
     private void colTimer(){
-        colTimer =  new  CountDownTimer(colTimeLeft, 1000) {
+        colTimer =  new  CountDownTimer(colTimeLeft, 1) {
             @Override
             // GOOD
             public void onTick(long millisUntilFinished) {
@@ -203,7 +168,54 @@ public class RunningActivity extends AppCompatActivity {
 
             @Override
             public void onFinish(){
-                example3();
+            }
+
+        }.start();
+
+    }
+
+
+    // This is starting time of where graveler is. Psyduck meets graveler around every 5 sec
+    // so i made countdown interval 5000ms and on every tick it makes onGraveler true then in obstacleTimer2() the idea was to
+    // start that [Blank] (i think around 1 sec) after the first becuase thats how long psyduck stays in contact eith graveler
+    // we use the onGraveler boolean later to determine if psyduck collides or not (in the checkcol method).
+    // the one second timer and fivesectimer were just experiemnts to give obstacleTimer2 a later start than obstacleTimer.
+    // and the fivesectimer i changed to 10ms so its not actually 5 sec.
+    // Also the problem with coltimr not working is you have to put in the runnable LOOK AT LINE 64ish
+    // in the checkcol method I changed if requirments to be psyduck low is visible and onGraver is true (aka psyduck is toucking graveler)
+    // I think i covered all of it. If you cant figure anything out dont stress and go to sleep well just wing the presentation
+    // sry for all the spelling mistakes.
+    private void obstacleTimer(){
+        obstacleTimer =  new  CountDownTimer(obsTimeLeft, 6000) {
+            @Override
+            // GOOD
+            public void onTick(long millisUntilFinished) {
+                obsTimeLeft = millisUntilFinished;
+                onGraveler = true;
+            }
+
+            @Override
+            public void onFinish(){
+
+            }
+
+        }.start();
+
+    }
+
+
+    private void obstacleTimer2(){
+        obstacleTimer2 =  new  CountDownTimer(obsTimeLeft2, 5002) {
+            @Override
+            // GOOD
+            public void onTick(long millisUntilFinished) {
+                obsTimeLeft2 = millisUntilFinished;
+                onGraveler = false;
+            }
+
+            @Override
+            public void onFinish(){
+
             }
 
         }.start();
@@ -242,24 +254,27 @@ public class RunningActivity extends AppCompatActivity {
         ImageView high = findViewById(R.id.airPsyduck);
         ImageView low = findViewById(R.id.groundPsyduck);
 
-        if (low.getVisibility() == VISIBLE) {
-            high.setVisibility(VISIBLE);
-            //endGame();
+        if ((low.getVisibility() == VISIBLE) && onGraveler == true) {
+            endGame2();
         }
     }
 
-
     public void endGame(View v) {
-
-        isPlayable = false;
 
         instructionsEnd = findViewById(R.id.instructionsRunningEnd);
         instructionsEnd.setVisibility(VISIBLE);
 
     }
 
+    public void endGame2() {
+
+        instructionsEnd = findViewById(R.id.instructionsRunningEnd);
+        instructionsEnd.setVisibility(VISIBLE);
+
+    }
+
+
     public void returnScreen(View v){
-        isPlayable = true;
 
         Intent intent = new Intent(this, HomeScreen.class);
 
