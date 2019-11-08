@@ -59,8 +59,6 @@ public class FlyingActivity extends AppCompatActivity {
 
         final ImageView backgroundOne = findViewById(R.id.flyingBackground1);
         final ImageView backgroundTwo = findViewById(R.id.flyingBackground2);
-        final ImageView obstacleOne = findViewById(R.id.graveler1Flying);
-        final ImageView obstacleTwo = findViewById(R.id.graveler2Flying);
 
         final ValueAnimator animator = ValueAnimator.ofFloat(1.0f, 0.0f);
         animator.setRepeatCount(ValueAnimator.INFINITE);
@@ -75,10 +73,6 @@ public class FlyingActivity extends AppCompatActivity {
                 backgroundOne.setTranslationX(translationX);
                 backgroundTwo.setTranslationX(translationX - width);
 
-                final float widthGraveler = obstacleOne.getWidth();
-                final float translationXGraveler = widthGraveler * progress;
-                obstacleOne.setTranslationX(translationXGraveler);
-                obstacleTwo.setTranslationX(translationXGraveler - widthGraveler);
             }
         });
         animator.start();
@@ -184,3 +178,4 @@ public class FlyingActivity extends AppCompatActivity {
         }
     }
 }
+
