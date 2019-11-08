@@ -3,6 +3,7 @@ package com.example.psyducklifeandroid;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -10,27 +11,27 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.CountDownTimer;
+import android.widget.Toast;
+
+import java.util.Timer;
+
+import static android.view.View.VISIBLE;
+
 public class RunningActivity extends AppCompatActivity {
     public static final long START_TIME_IN_MILLIS = 1000;
+    public static final long COL_TIME_IN_MILLIS = 3000;
     private CountDownTimer myTimer;
     private boolean mTimer;
+    private CountDownTimer colTimer;
+    private boolean cTimer;
     private long myTimeLeft = START_TIME_IN_MILLIS;
+    private long colTimeLeft = COL_TIME_IN_MILLIS;
     private ImageView up;
-    TextView timerTextView;
-    long startTime = 0;
-    TextView instructionsStart;
-    TextView instructionsEnd;
-
-
-    private View.OnClickListener instructionsOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            instructionsStart = findViewById(R.id.instructionsRunningStart);
-            instructionsStart.setVisibility(View.GONE);
-
-            startGame();
-        }
-    };
+    private TextView timerTextView;
+    private long startTime = 0;
+    private TextView instructionsStart;
+    private TextView instructionsEnd;
+    private boolean isPlayable = true;
 
 
     Handler timerHandler = new Handler();
@@ -52,19 +53,56 @@ public class RunningActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_running);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         instructionsStart = findViewById(R.id.instructionsRunningStart);
 
-        instructionsStart.setOnClickListener(instructionsOnClickListener);
+        //instructionsStart.setOnClickListener(instructionsOnClickListener);
+
+        //instructionsStart.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
+
+         //       example();
+         //       startGame(v);
+         //       example();
+
+         //       instructionsStart.setVisibility(View.GONE);
+         //   }
+        //});
 
         instructionsEnd = findViewById(R.id.instructionsRunningEnd);
 
-        instructionsEnd.setOnClickListener(instructionsOnClickListener);
+        //instructionsEnd.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
+
+        //        returnScreen(v);
+
+        //    }
+        //});
+
     }
 
 
-    public void startGame(){
+    private View.OnClickListener instructionsOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
 
+            example1();
+            startGame(v);
+            example1();
+
+            instructionsStart.setVisibility(View.GONE);
+        }
+    };
+
+
+    public void example1(){
         final ImageView backgroundOne = findViewById(R.id.runningBackground1);
         final ImageView backgroundTwo = findViewById(R.id.runningBackground2);
         final ImageView obstacleOne = findViewById(R.id.graveler1Running);
@@ -103,13 +141,38 @@ public class RunningActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 upClick(v);
-                if (mTimer) {
-                    resetTimer();
-                } else {
-                    startTimer();
-                }
+                resetTimer();
+                startTimer();
+                //colTimer();
+
             }
         });
+    }
+
+
+    public void example2(){
+        colTimer();
+        startTimer();
+    }
+
+
+    public void example3(){
+        ImageView high = findViewById(R.id.airPsyduck);
+        high.setVisibility(View.VISIBLE);
+    }
+
+
+    public void example4(){
+        instructionsStart.setVisibility(View.GONE);
+    }
+
+
+    public void startGame(View v){
+        example1();
+        //example2();
+        example3();
+        example4();
+
     }
 
 
@@ -121,20 +184,36 @@ public class RunningActivity extends AppCompatActivity {
 
             }
 
-            //@Override
+            @Override
             public void onFinish() {
-                mTimer = false;
                 downClick();
             }
         }.start();
 
-        mTimer = true;
+    }
+
+    private void colTimer(){
+        colTimer =  new  CountDownTimer(colTimeLeft, 1000) {
+            @Override
+            // GOOD
+            public void onTick(long millisUntilFinished) {
+                colTimeLeft = millisUntilFinished;
+                checkCol();
+            }
+
+            @Override
+            public void onFinish(){
+                example3();
+            }
+
+        }.start();
 
     }
 
 
     private void resetTimer() {
         myTimeLeft = START_TIME_IN_MILLIS;
+        colTimeLeft = COL_TIME_IN_MILLIS;
     }
 
 
@@ -142,11 +221,10 @@ public class RunningActivity extends AppCompatActivity {
         ImageView high = findViewById(R.id.airPsyduck);
         ImageView low = findViewById(R.id.groundPsyduck);
 
-        high.setVisibility(View.VISIBLE);
+        high.setVisibility(VISIBLE);
         high.setImageResource(R.drawable.psyducksprite);
         low.setVisibility(View.INVISIBLE);
 
-        endGame();
     }
 
 
@@ -154,20 +232,37 @@ public class RunningActivity extends AppCompatActivity {
         ImageView high = findViewById(R.id.airPsyduck);
         ImageView low = findViewById(R.id.groundPsyduck);
 
-        low.setVisibility(View.VISIBLE);
+        low.setVisibility(VISIBLE);
         low.setImageResource(R.drawable.psyducksprite);
         high.setVisibility(View.INVISIBLE);
     }
 
+    // GOOD
+    public void checkCol(){
+        ImageView high = findViewById(R.id.airPsyduck);
+        ImageView low = findViewById(R.id.groundPsyduck);
 
-    public void endGame(){
+        if (low.getVisibility() == VISIBLE) {
+            high.setVisibility(VISIBLE);
+            //endGame();
+        }
+    }
 
-        View.OnClickListener instructionsOnClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                instructionsEnd = findViewById(R.id.instructionsRunningEnd);
-                instructionsEnd.setVisibility(View.VISIBLE);
-            }
-        };
+
+    public void endGame(View v) {
+
+        isPlayable = false;
+
+        instructionsEnd = findViewById(R.id.instructionsRunningEnd);
+        instructionsEnd.setVisibility(VISIBLE);
+
+    }
+
+    public void returnScreen(View v){
+        isPlayable = true;
+
+        Intent intent = new Intent(this, HomeScreen.class);
+
+        startActivity(intent);
     }
 }
