@@ -3,6 +3,7 @@ package com.example.psyducklifeandroid;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import static android.view.View.VISIBLE;
 
 public class SwimmingActivity extends AppCompatActivity {
 
@@ -22,6 +25,7 @@ public class SwimmingActivity extends AppCompatActivity {
     TextView instructions;
     Handler timerHandler = new Handler();
     TextView timerTextView;
+    private TextView instructionsEndSwimming;
     long startTime = 0;
 
 
@@ -57,6 +61,8 @@ public class SwimmingActivity extends AppCompatActivity {
         instructions = findViewById(R.id.instructionsSwimming);
 
         instructions.setOnClickListener(instructionsOnClickListener);
+
+        instructionsEndSwimming = findViewById(R.id.instructionsEndSwimming);
     }
 
 
@@ -180,5 +186,21 @@ public class SwimmingActivity extends AppCompatActivity {
         middle.setImageResource(R.drawable.psyducksprite);
         high.setVisibility(View.INVISIBLE);
         low.setVisibility(View.INVISIBLE);
+    }
+
+
+    public void endGame(View v) {
+
+        instructionsEndSwimming = findViewById(R.id.instructionsEndSwimming);
+        instructionsEndSwimming.setVisibility(VISIBLE);
+
+    }
+
+
+    public void returnScreen(View v){
+
+        Intent intent = new Intent(this, HomeScreen.class);
+
+        startActivity(intent);
     }
 }
