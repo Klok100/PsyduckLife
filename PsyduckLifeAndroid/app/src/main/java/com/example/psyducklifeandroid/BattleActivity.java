@@ -115,7 +115,7 @@ public class BattleActivity extends AppCompatActivity {
         vileplumeMoves.add(new Moves("Dazzling Gleam", "Fairy", 80, 100));
         vileplumeMoves.add(new Moves("Solar Beam", "Grass", 120, 100));
 
-        enemyPokemon.add(new EnemyPokemon("Onix", "Rock", 5000, 45, 160, 30, 45, onixMoves));
+        enemyPokemon.add(new EnemyPokemon("Onix", "Rock", 50, 45, 160, 30, 45, onixMoves));
         enemyPokemon.add(new EnemyPokemon("Starmie", "Water", 60, 75, 85, 100, 85, starmieMoves));
         enemyPokemon.add(new EnemyPokemon("Raichu", "Electric", 60, 90, 55, 90, 80, raichuMoves));
         enemyPokemon.add(new EnemyPokemon("Vileplume", "Grass", 75, 80, 85, 100, 90, vileplumeMoves));
@@ -132,6 +132,10 @@ public class BattleActivity extends AppCompatActivity {
     // Generates a random integer based on parameters entered, inclusive
     public int random(int min, int max){
         return (int) (Math.floor(Math.random() * (max - min + 1))) + 1;
+    }
+
+    public int randMove(){
+        return (int) (Math.floor(Math.random() * 4));
     }
 
     // Uses the accuracy of a given move to see if the move hit or not
@@ -288,7 +292,7 @@ public class BattleActivity extends AppCompatActivity {
             Moves scratch = psyduckMoves.get(0);
             psyduckAtk(enemy, enemyPokemonHP, scratch, psyduckMsg, enemyMsg, enemyPokemonOrigHP);
 
-            Moves enemyMove = enemy.getEnemyMoves().get(random(0, 3));
+            Moves enemyMove = enemy.getEnemyMoves().get(randMove());
             enemyAtk(enemy, psyduckHP, enemyMove, psyduckMsg, enemyMsg, psyduckOrigHP);
         }
     }
@@ -305,7 +309,7 @@ public class BattleActivity extends AppCompatActivity {
             Moves waterpulse = psyduckMoves.get(1);
             psyduckAtk(enemy, enemyPokemonHP, waterpulse, psyduckMsg, enemyMsg, enemyPokemonOrigHP);
 
-            Moves enemyMove = enemy.getEnemyMoves().get(random(0, 3));
+            Moves enemyMove = enemy.getEnemyMoves().get(randMove());
             enemyAtk(enemy, psyduckHP, enemyMove, psyduckMsg, enemyMsg, psyduckOrigHP);
         }
     }
@@ -323,7 +327,7 @@ public class BattleActivity extends AppCompatActivity {
             Moves psychic = psyduckMoves.get(2);
             psyduckAtk(enemy, enemyPokemonHP, psychic, psyduckMsg, enemyMsg, enemyPokemonOrigHP);
 
-            Moves enemyMove = enemy.getEnemyMoves().get(random(0, 3));
+            Moves enemyMove = enemy.getEnemyMoves().get(randMove());
             enemyAtk(enemy, psyduckHP, enemyMove, psyduckMsg, enemyMsg, psyduckOrigHP);
         }
     }
@@ -340,13 +344,14 @@ public class BattleActivity extends AppCompatActivity {
             Moves icebeam = psyduckMoves.get(3);
             psyduckAtk(enemy, enemyPokemonHP, icebeam, psyduckMsg, enemyMsg, enemyPokemonOrigHP);
 
-            Moves enemyMove = enemy.getEnemyMoves().get(random(0, 3));
+            Moves enemyMove = enemy.getEnemyMoves().get(randMove());
             enemyAtk(enemy, psyduckHP, enemyMove, psyduckMsg, enemyMsg, psyduckOrigHP);
         }
     }
 
     public void goBack(View v){
         isRunning = true;
+        enemyPokemon.get(setEnemy()).setHp(enemyPokemonOrigHP);
         Intent intent = new Intent(this, HomeScreen.class);
         startActivity(intent);
     }
