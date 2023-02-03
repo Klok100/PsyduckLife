@@ -15,7 +15,7 @@ public class Psyduck {
 
     public Psyduck(){
         this.name = "Psyduck";
-        this.type = "Water"
+        this.type = "Water";
         this.hp = 50;
         this.atk = 32;
         this.def = 48;
