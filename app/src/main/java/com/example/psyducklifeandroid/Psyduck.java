@@ -3,6 +3,7 @@ package com.example.psyducklifeandroid;
 public class Psyduck {
 
     private String name;
+    private String type;
     private double hp;
     private int atk;
     private int def;
@@ -14,6 +15,7 @@ public class Psyduck {
 
     public Psyduck(){
         this.name = "Psyduck";
+        this.type = "Water"
         this.hp = 50;
         this.atk = 32;
         this.def = 48;
@@ -30,6 +32,14 @@ public class Psyduck {
 
     public void setName(String name){
         this.name = name;
+    }
+    
+    public String getType(){
+        return type;
+    }
+    
+    public void setType(){
+        this.type = type;
     }
 
     public double getHp(){
