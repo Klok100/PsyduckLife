@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">PsyduckLifeAndroid</string>
+    <string name="DirectionsRunningStart">\n\nStart!</string>
+    <string name="DirectionsRunningEnd">\n\nEnd!</string>
     <string name="DirectionsFlying">\n\nClick the top of the screen to go up and click the bottom of the screen to go down. Avoid the Gravelers!\n\n\n\nClick to Start
     </string>
 </resources>
